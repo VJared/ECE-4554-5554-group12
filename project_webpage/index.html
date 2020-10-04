@@ -136,14 +136,37 @@
       recommendations of similar images, and
       a visualization of the image similarity.
 
+
       <br><br>
       <!-- Results -->
       <h3>Experiments and results</h3>
-      Convolutional neural networks are most suited for image related tasks as they preserve the spatial relationship between neighboring pixels in an image and reduce computational complexity through weight training. In this project, we intend to train multiple variations of Deep Convolutional Neural Networks on the Deep Fashion dataset to develop a visual search based recommender system. The performance of the multiple Deep CNNs will be compared using specific evaluation metrics. The Deep Fashion dataset contains ~300,000 annotated images separated into various categories and with bounding boxes to separate the object of interest from the background.
+      Convolutional neural networks are most suited for image related tasks as they preserve the spatial relationship
+      between neighboring pixels in an image and reduce computational complexity through weight training. In this
+      project, we intend to train multiple variations of Deep Convolutional Neural Networks on the Deep Fashion dataset
+      to develop a visual search based recommender system. The performance of the multiple Deep CNNs will be compared
+      using specific evaluation metrics. The Deep Fashion dataset contains ~300,000 annotated images separated into
+      various categories and with bounding boxes to separate the object of interest from the background.
       We propose evaluating the following CNN models for building the visual search based recommender system:
-      Transfer Learning with VGG: The convolution layers of a CNN generate a vector representation of an input image that captures its visual attributes and can be used to compare with the vector representation of other images. Since training a Deep CNN from scratch can be computationally expensive, we propose to use the popular Transfer Learning Technique. The VGG-16 architecture (that is pretrained on the ImageNet dataset) will be used initialize the weights of the convolution layers of our model. Next, the Deep Fashion dataset will be used to train the weights of our model’s dense classification layers to obtain the desired outputs. We will use the pre-trained VGG-16 as our baseline and compare it with our model that was tuned on the Deep Fashion dataset. We will also compare it against the VisNet architecture mentioned below.
-      VisNet: VisNet is a deep CNN model proposed by the e-commerce retailer Flipkart. It is modelled on VGG-16 and additionally, contains parallel shallow convolution layers that detect both high and low level image details. This is based on the Triplet based deep ranking model where the input consists of a triplet of three images – positive image(p), negative image(n) and query image(q). It is expected that pq are more visually similar compared to qn. The Street2Shop dataset was used to train VisNet. We propose tuning it on the Deep Fashion dataset and comparing with the Transfer Learning based models.
-      To compare the models we will use evaluation metrics like L1, L2 and Hamming distance to calculate the distance between the feature vector of the input image with those of the output recommended images. Similar images belonging to one category will have minimal distance between their feature vectors. When the user uploads an input query image, the model will recommend the top 10 most similar items from the database to the user. Additionally, a t-sne visualization will provide a holistic   view of the similarity of the input image with all the images in the dataset.
+      Transfer Learning with VGG: The convolution layers of a CNN generate a vector representation of an input image
+      that captures its visual attributes and can be used to compare with the vector representation of other images.
+      Since training a Deep CNN from scratch can be computationally expensive, we propose to use the popular Transfer
+      Learning Technique. The VGG-16 architecture (that is pretrained on the ImageNet dataset) will be used initialize
+      the weights of the convolution layers of our model. Next, the Deep Fashion dataset will be used to train the
+      weights of our model’s dense classification layers to obtain the desired outputs. We will use the pre-trained
+      VGG-16 as our baseline and compare it with our model that was tuned on the Deep Fashion dataset. We will also
+      compare it against the VisNet architecture mentioned below.
+      VisNet: VisNet is a deep CNN model proposed by the e-commerce retailer Flipkart. It is modelled on VGG-16 and
+      additionally, contains parallel shallow convolution layers that detect both high and low level image details. This
+      is based on the Triplet based deep ranking model where the input consists of a triplet of three images – positive
+      image(p), negative image(n) and query image(q). It is expected that pq are more visually similar compared to qn.
+      The Street2Shop dataset was used to train VisNet. We propose tuning it on the Deep Fashion dataset and comparing
+      with the Transfer Learning based models.
+      To compare the models we will use evaluation metrics like L1, L2 and Hamming distance to calculate the distance
+      between the feature vector of the input image with those of the output recommended images. Similar images
+      belonging to one category will have minimal distance between their feature vectors. When the user uploads an input
+      query image, the model will recommend the top 10 most similar items from the database to the user. Additionally, a
+      t-sne visualization will provide a holistic view of the similarity of the input image with all the images in the
+      dataset.
 
 
       <br><br>
