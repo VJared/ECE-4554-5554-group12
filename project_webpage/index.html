@@ -1,105 +1,189 @@
 <!DOCTYPE html>
-<html lang="en"><head>  
+<html lang="en">
+
+<head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <title>Computer Vision Course Project
-  | ECE, Virginia Tech | Fall 2020: ECE 4554/5554</title>
+    | ECE, Virginia Tech | Fall 2020: ECE 4554/5554</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
 
-<!-- Le styles -->  
+  <!-- Le styles -->
   <link href="css/bootstrap.css" rel="stylesheet">
-<style>
-body {
-padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-}
-.vis {
-color: #3366CC;
-}
-.data {
-color: #FF9900;
-}
-</style>
-  
-<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 60px;
+      /* 60px to make the container go all the way to the bottom of the topbar */
+    }
 
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
+    .vis {
+      color: #3366CC;
+    }
+
+    .data {
+      color: #FF9900;
+    }
+  </style>
+
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 </head>
 
 <body>
-<div class="container">
-<div class="page-header">
+  <div class="container">
+    <div class="page-header">
 
-<!-- Title and Name --> 
-<h1>Your Title Here</h1> 
-<span style="font-size: 20px; line-height: 1.5em;"><strong>Your Name Here</strong></span><br>
-<span style="font-size: 18px; line-height: 1.5em;">Fall 2020 ECE 4554/5554 Computer Vision: Course Project</span><br>
-<span style="font-size: 18px; line-height: 1.5em;">Virginia Tech</span>
-<hr>
+      <!-- Title and Name -->
+      <h1>Project Proposal - Visual Recommendation System</h1>
+      <span style="font-size: 20px; line-height: 1.5em;"><strong>Arzoo Irshad, Noah Meine, Jared
+          Veerhoff</strong></span><br>
+      <span style="font-size: 18px; line-height: 1.5em;">Fall 2020 ECE 4554/5554 Computer Vision: Course
+        Project</span><br>
+      <span style="font-size: 18px; line-height: 1.5em;">Virginia Tech</span>
+      <hr>
 
-Please see <a href="http://vision.cs.utexas.edu/projects/adapted_attributes/">this</a> for an example of how to lay out the various details of your project. You may need to provide more details than this, beause you will not be submitting an associated paper to accompany the webpage. So the page should be self-contained.
+      <!-- Goal -->
+      <h3>Abstract</h3>
 
-<!-- Goal -->
-<h3>Abstract</h3>
+      Many current visual recommendation systems do not allow a user to visualize the difference or similarity
+      between
+      images. In our project, we plan to implement our own visual recommendation
+      system. We will allow a user to visualize the similarity between their input image and other images in two
+      dimensional
+      space. We will tailor our project to work with fashion items (clothes, brands, outfits), as there are many
+      exciting applications for visual recommendation in the fashion/e-commerce domain.<br><br>
 
-One or two sentences on the motivation behind the problem you are solving. One or two sentences describing the approach you took. One or two sentences on the main result you obtained.
-<br><br>
-<!-- figure -->
-<h3>Teaser figure</h3>
-A figure that conveys the main idea behind the project or the main application being addressed.
-<br><br>
-<!-- Main Illustrative Figure --> 
-<div style="text-align: center;">
-<img style="height: 200px;" alt="" src="mainfig.png">
-</div>
+      We plan to use a pre-trained model in image classification such as <a href="https://arxiv.org/abs/1505.06798"
+        target="_blank">VGG-16</a> because of its strong performance in
+      visual recognition. We will then implement transfer learning to optimize its performance with fashion items by
+      using the <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" target="_blank">DeepFashion</a> and/or
+      Fashion MNIST datasets. In order to quantify and assess image similarity, we will implement our own algorithm that
+      uses the outputs of our retrained model as data. To perform a two deminsional visualization of image similarity,
+      we will use <a href="https://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>. We will deploy our project as a
+      self-contained application. The application will take an input image and provide the user with recommended similar
+      or
+      complementary items, and a visual representation of how similar certain images are to the input image.
 
-<br><br>
-<!-- Introduction -->
-<h3>Introduction</h3>
-Motivation behind the problem you are solving, what applications it has, any brief background on the particular domain you are working in (if not regular RBG photographs), etc. If you are using a new way to solve an existing problem, briefly mention and describe the existing approaches and tell us how your approach is new.
+      <br><br>
 
-<br><br>
-<!-- Approach -->
-<h3>Approach</h3>
-Describe very clearly and systematically your approach to solve the problem. Tell us exactly what existing implementations you used to build your system. Tell us what obstacles you faced and how you addressed them. Justify any design choices or judgment calls you made in your approach.
+      <h3>Problem Statement</h3>
+      Many visual search and recommendation systems perform well at providing a user with similar images to an input
+      image, but they do not allow the user to visualize image similarity. We plan to implement a system that provides
+      the user with a set of similar images, and a visualization of image similarity in two dimensional space.
 
-<br><br>
-<!-- Results -->
-<h3>Experiments and results</h3>
-Provide details about the experimental set up (number of images/videos, number of datasets you experimented with, train/test split if you used machine learning algorithms, etc.). Describe the evaluation metrics you used to evaluate how well your approach is working. Include clear figures and tables, as well as illustrative qualitative examples if appropriate. Be sure to include obvious baselines to see if your approach is doing better than a naive approach (e.g. for classification accuracy, how well would a classifier do that made random decisions?). Also discuss any parameters of your algorithms, and tell us how you set the values of those parameters. You can also show us how the performance varies as you change those parameter values. Be sure to discuss any trends you see in your results, and explain why these trends make sense. Are the results as expected? Why?
+      <br><br>
+      <h3>Project Goal</h3>
+      The goal of our project is to develop an application that allows the user to input a fashion related image and
+      receive a list of similar items. We will also provide the user with a two dimensional visualization of image
+      similarity between the input image, and some of the images in our database. Here is summary of the system inputs,
+      outputs, and tools we plan to use and build upon:
+      <br><br>
 
-<br><br>
+      <strong>Tools</strong>
+      <ul>
+        <li>VGG-16 model trained on ImageNet weights</li>
+        <li>DeepFashion and/or Fashion MNIST datasets</li>
+        <li>t-SNE for two dimensional visualization</li>
+      </ul>
+      <br>
 
-<!-- Main Results Figure --> 
-<div style="text-align: center;">
-<img style="height: 300px;" alt="" src="results.png">
-</div>
-<br><br>
+      <strong>Inputs</strong>
+      <ul>
+        <li>A user provided JPEG image (url or possible image upload)</li>
+      </ul>
+      <br>
 
-<!-- Results -->
-<h3>Qualitative results</h3>
-Show several visual examples of inputs/outputs of your system (success cases and failures) that help us better understand your approach.
-<br><br>
+      <strong>Outputs</strong>
+      <ul>
+        <li>A list of recommended similar items </li>
+        <li>A two dimensional visualization of image similarity</li>
+      </ul>
 
-<!-- Main Results Figure --> 
-<div style="text-align: center;">
-<img style="height: 300px;" alt="" src="qual_results.png">
-</div>
-<br><br>
+      <br><br>
 
 
+      <!-- figure -->
+      <h3>Approach -- Review Please</h3>
+      Here is a flowchart of the approach we plan to take to accomplish our project goals.
+      <br><br>
+      <!-- Main Illustrative Figure -->
+      <div style="text-align: center;">
+        <img style="height: 200px;" alt="" src="flowchart.png">
+      </div>
+
+      <br><br>
+
+      The technical approach we will follow begins with using a model such as VGG-16 that is pre-trained on the ImageNet
+      dataset. We will then adapt this model to the fashion domain for our project using transfer learning. This allows
+      us to fine-tune
+      a model for the purposes of our project quickly. This procedure may even be accelerated by using a cloud computing
+      service
+      to generate the best results possible. We will then perform experiements on different models and select a
+      configuration that best
+      suits our desired performance.<br><br>
+
+      We will use the selected model to produce feature vectors for a user specified input image, and implement a custom
+      algorithm to find images with similar attributes. We will then assess similarity between images using these
+      vectors, and plot them in two
+      deminsional space using t-SNE.
+      We will experiement with different metrics of image similarity to provide the user with a list of top
+      recommendations of similar images, and
+      a visualization of the image similarity.
+
+      <br><br>
+      <!-- Results -->
+      <h3>Experiments and results</h3>
+      Provide details about the experimental set up (number of images/videos, number of datasets you experimented
+      with,
+      train/test split if you used machine learning algorithms, etc.). Describe the evaluation metrics you used to
+      evaluate how well your approach is working. Include clear figures and tables, as well as illustrative
+      qualitative
+      examples if appropriate. Be sure to include obvious baselines to see if your approach is doing better than a
+      naive
+      approach (e.g. for classification accuracy, how well would a classifier do that made random decisions?). Also
+      discuss any parameters of your algorithms, and tell us how you set the values of those parameters. You can also
+      show us how the performance varies as you change those parameter values. Be sure to discuss any trends you see
+      in
+      your results, and explain why these trends make sense. Are the results as expected? Why?
+
+      <br><br>
+
+      <!-- Main Results Figure -->
+      <div style="text-align: center;">
+        <img style="height: 300px;" alt="" src="results.png">
+      </div>
+      <br><br>
+
+      <!-- Results -->
+      <h3>Qualitative results</h3>
+      Show several visual examples of inputs/outputs of your system (success cases and failures) that help us better
+      understand your approach.
+      <br><br>
+
+      <!-- Main Results Figure -->
+      <div style="text-align: center;">
+        <img style="height: 300px;" alt="" src="qual_results.png">
+      </div>
+      <br><br>
 
 
-  <hr>
-  <footer> 
-  <p>© Arzoo Irshad, Noah Meine, Jared Veerhoff</p>
-  </footer>
-</div>
-</div>
 
-<br><br>
 
-</body></html>
+      <hr>
+      <footer>
+        <p>© Arzoo Irshad, Noah Meine, Jared Veerhoff</p>
+      </footer>
+    </div>
+  </div>
+
+  <br><br>
+
+</body>
+
+</html>
