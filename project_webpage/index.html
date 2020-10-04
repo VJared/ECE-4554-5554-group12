@@ -40,8 +40,8 @@
     <div class="page-header">
 
       <!-- Title and Name -->
-      <h1>Project Proposal - Visual Recommendation System</h1>
-      <span style="font-size: 20px; line-height: 1.5em;"><strong>Arzoo Irshad, Noah Meine, Jared
+      <h1>Project Proposal - Visual Search Based Recommendation System</h1>
+      <span style="font-size: 20px; line-height: 1.5em;"><strong>Syeda Arzoo Irshad, Noah Meine, Jared
           Veerhoff</strong></span><br>
       <span style="font-size: 18px; line-height: 1.5em;">Fall 2020 ECE 4554/5554 Computer Vision: Course
         Project</span><br>
@@ -73,12 +73,6 @@
       <br><br>
 
       <h3>Problem Statement</h3>
-      Many visual search and recommendation systems perform well at providing a user with similar images to an input
-      image, but they do not allow the user to visualize image similarity. We plan to implement a system that provides
-      the user with a set of similar images, and a visualization of image similarity in two dimensional space.
-
-      <br><br>
-      <h3>Project Goal</h3>
       The goal of our project is to develop an application that allows the user to input a fashion related image and
       receive a list of similar items. We will also provide the user with a two dimensional visualization of image
       similarity between the input image, and some of the images in our database. Here is summary of the system inputs,
@@ -124,15 +118,15 @@
       us to fine-tune
       a model for the purposes of our project quickly. This procedure may even be accelerated by using a cloud computing
       service
-      to generate the best results possible. We will then perform experiements on different models and select a
+      to generate the best results possible. We will then perform experiments on different models and select a
       configuration that best
       suits our desired performance.<br><br>
 
       We will use the selected model to produce feature vectors for a user specified input image, and implement a custom
       algorithm to find images with similar attributes. We will then assess similarity between images using these
       vectors, and plot them in two
-      deminsional space using t-SNE.
-      We will experiement with different metrics of image similarity to provide the user with a list of top
+      dimensional space using t-SNE.
+      We will experiment with different metrics of image similarity to provide the user with a list of top
       recommendations of similar images, and
       a visualization of the image similarity.
 
@@ -141,13 +135,21 @@
       <!-- Results -->
       <h3>Experiments and results</h3>
       Convolutional neural networks are most suited for image related tasks as they preserve the spatial relationship
-      between neighboring pixels in an image and reduce computational complexity through weight training. In this
-      project, we intend to train multiple variations of Deep Convolutional Neural Networks on the Deep Fashion dataset
-      to develop a visual search based recommender system. The performance of the multiple Deep CNNs will be compared
-      using specific evaluation metrics. The Deep Fashion dataset contains ~300,000 annotated images separated into
-      various categories and with bounding boxes to separate the object of interest from the background.
+      between neighboring pixels in an image and reduce computational complexity through weight training.
+      In this project, we intend to train multiple variations of Deep Convolutional Neural Networks on the Deep
+      Fashion dataset to develop a visual search based recommender system. The performance of the multiple Deep
+      CNNs will be compared using specific evaluation metrics. The Deep Fashion dataset contains ~300,000 annotated
+      images separated into various categories and with bounding boxes to separate the object of interest from the
+      background.
+
+      <br><br>
+
       We propose evaluating the following CNN models for building the visual search based recommender system:
-      Transfer Learning with VGG: The convolution layers of a CNN generate a vector representation of an input image
+
+      <br><br>
+
+      <strong>Transfer Learning with VGG:</strong> The convolution layers of a CNN generate a vector representation of
+      an input image
       that captures its visual attributes and can be used to compare with the vector representation of other images.
       Since training a Deep CNN from scratch can be computationally expensive, we propose to use the popular Transfer
       Learning Technique. The VGG-16 architecture (that is pretrained on the ImageNet dataset) will be used initialize
@@ -155,41 +157,39 @@
       weights of our model’s dense classification layers to obtain the desired outputs. We will use the pre-trained
       VGG-16 as our baseline and compare it with our model that was tuned on the Deep Fashion dataset. We will also
       compare it against the VisNet architecture mentioned below.
-      VisNet: VisNet is a deep CNN model proposed by the e-commerce retailer Flipkart. It is modelled on VGG-16 and
-      additionally, contains parallel shallow convolution layers that detect both high and low level image details. This
-      is based on the Triplet based deep ranking model where the input consists of a triplet of three images – positive
-      image(p), negative image(n) and query image(q). It is expected that pq are more visually similar compared to qn.
+
+      <br><br>
+
+      <strong>VisNet:</strong> <a href="https://arxiv.org/pdf/1703.02344.pdf" target="_blank">VisNet</a> is a deep CNN
+      model proposed by
+      the e-commerce retailer Flipkart. It is modelled on VGG-16 and
+      additionally, contains parallel shallow convolution layers that detect both high and low level image details.
+      This is based on the Triplet based deep ranking model where the input consists of a triplet of three images –
+      positive image(p), negative image(n) and query image(q). It is expected that pq are more visually similar compared
+      to qn.
       The Street2Shop dataset was used to train VisNet. We propose tuning it on the Deep Fashion dataset and comparing
-      with the Transfer Learning based models.
-      To compare the models we will use evaluation metrics like L1, L2 and Hamming distance to calculate the distance
-      between the feature vector of the input image with those of the output recommended images. Similar images
-      belonging to one category will have minimal distance between their feature vectors. When the user uploads an input
-      query image, the model will recommend the top 10 most similar items from the database to the user. Additionally, a
-      t-sne visualization will provide a holistic view of the similarity of the input image with all the images in the
-      dataset.
+      with
+      the Transfer Learning based models.
+
+      <br><br>
+      <strong>Evaluation metrics</strong>
+      <br><br>
+      Metrics like Precision, Accuracy, Recall and F1 score will used to compare the performance of the above Deep
+      Learning models.
+      To measure the distance between the feature vector of input image and the feature vectors of the images in the
+      database,
+      we will use evaluation metrics like Cosine, L1(Manhatten), L2(Euclidean) and Hamming distance. The resulting most
+      similar images
+      will be recommended to the user.
+      Similar images belonging to one category will have minimal distance between their feature vectors. When the user
+      uploads an
+      input query image, the model will recommend the top 10 most similar items from the database to the user.
+      Additionally, a t-sne visualization will provide a holistic view of the similarity of the input image with all
+      the images in the dataset.
+
 
 
       <br><br>
-
-      <!-- Main Results Figure -->
-      <div style="text-align: center;">
-        <img style="height: 300px;" alt="" src="results.png">
-      </div>
-      <br><br>
-
-      <!-- Results -->
-      <h3>Qualitative results</h3>
-      Show several visual examples of inputs/outputs of your system (success cases and failures) that help us better
-      understand your approach.
-      <br><br>
-
-      <!-- Main Results Figure -->
-      <div style="text-align: center;">
-        <img style="height: 300px;" alt="" src="qual_results.png">
-      </div>
-      <br><br>
-
-
 
 
       <hr>
