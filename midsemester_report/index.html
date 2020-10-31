@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Computer Vision Course Project
+    | ECE, Virginia Tech | Fall 2020: ECE 4554/5554</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Le styles -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 60px;
+      /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+
+    .vis {
+      color: #3366CC;
+    }
+
+    .data {
+      color: #FF9900;
+    }
+  </style>
+
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+  <div class="container">
+    <div class="page-header">
+
+      <!-- Title and Name -->
+      <h1>Project Proposal</h1>
+      <h1>Visual Search Based Recommendation System</h1>
+      <span style="font-size: 20px; line-height: 1.5em;"><strong>Syeda Arzoo Irshad, Noah Meine, Jared
+          Veerhoff</strong></span><br>
+      <span style="font-size: 18px; line-height: 1.5em;">Fall 2020 ECE 4554/5554 Computer Vision: Course
+        Project</span><br>
+      <span style="font-size: 18px; line-height: 1.5em;">Virginia Tech</span>
+      <hr>
+
+      <!-- Goal -->
+      <h3>Abstract</h3>
+
+      Many current visual recommendation systems do not allow a user to visualize the difference or similarity
+      between
+      images. In our project, we plan to implement our own visual recommendation
+      system. We will allow a user to visualize the similarity between their input image and other images in two
+      dimensional
+      space. We will tailor our project to work with fashion items (clothes, brands, outfits), as there are many
+      exciting applications for visual recommendation in the fashion/e-commerce domain.<br><br>
+
+      We plan to use a pre-trained model in image classification such as <a href="https://arxiv.org/abs/1505.06798"
+        target="_blank">VGG-16</a> because of its strong performance in
+      visual recognition. We will then implement transfer learning to optimize its performance with fashion items by
+      using the <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" target="_blank">DeepFashion</a> and/or
+      Fashion MNIST datasets. In order to quantify and assess image similarity, we will implement our own algorithm that
+      uses the outputs of our retrained model as data. To perform a two deminsional visualization of image similarity,
+      we will use <a href="https://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>. We will deploy our project as a
+      self-contained application. The application will take an input image and provide the user with recommended similar
+      or
+      complementary items, and a visual representation of how similar certain images are to the input image.
+
+      <br><br>
+
+      <h3>Problem Statement</h3>
+      The goal of our project is to develop an application that allows the user to input a fashion related image and
+      receive a list of similar items. We will also provide the user with a two dimensional visualization of image
+      similarity between the input image, and some of the images in our database. Here is summary of the system inputs,
+      outputs, and tools we plan to use and build upon:
+      <br><br>
+
+      <strong>Tools</strong>
+      <ul>
+        <li>VGG-16 model trained on ImageNet weights</li>
+        <li>DeepFashion and/or Fashion MNIST datasets</li>
+        <li>t-SNE for two dimensional visualization</li>
+      </ul>
+      <br>
+
+      <strong>Inputs</strong>
+      <ul>
+        <li>A user provided JPEG image (url or possible image upload)</li>
+      </ul>
+      <br>
+
+      <strong>Outputs</strong>
+      <ul>
+        <li>A list of recommended similar items </li>
+        <li>A two dimensional visualization of image similarity</li>
+      </ul>
+
+      <br><br>
+
+
+      <!-- figure -->
+      <h3>Approach</h3>
+      Here is a flowchart of the approach we plan to take to accomplish our project goals.
+      <br><br>
+      <!-- Main Illustrative Figure -->
+      <div style="text-align: center;">
+        <img style="height: 200px;" alt="" src="flowchart.png">
+      </div>
+
+      <br><br>
+
+      The technical approach we will follow begins with using a model such as VGG-16 that is pre-trained on the ImageNet
+      dataset. We will then adapt this model to the fashion domain for our project using transfer learning. This allows
+      us to fine-tune
+      a model for the purposes of our project quickly. This procedure may even be accelerated by using a cloud computing
+      service
+      to generate the best results possible. We will then perform experiments on different models and select a
+      configuration that best
+      suits our desired performance.<br><br>
+
+      We will use the selected model to produce feature vectors for a user specified input image, and implement a custom
+      algorithm to find images with similar attributes. We will then assess similarity between images using these
+      vectors, and plot them in two
+      dimensional space using t-SNE.
+      We will experiment with different metrics of image similarity to provide the user with a list of top
+      recommendations of similar images, and
+      a visualization of the image similarity.
+
+
+      <br><br>
+      <!-- Results -->
+      <h3>Experiments and results</h3>
+      Convolutional neural networks are most suited for image related tasks as they preserve the spatial relationship
+      between neighboring pixels in an image and reduce computational complexity through weight training.
+      In this project, we intend to train multiple variations of Deep Convolutional Neural Networks on the Deep
+      Fashion dataset to develop a visual search based recommender system. The performance of the multiple Deep
+      CNNs will be compared using specific evaluation metrics. The Deep Fashion dataset contains ~300,000 annotated
+      images separated into various categories and with bounding boxes to separate the object of interest from the
+      background.
+
+      <br><br>
+
+      We propose evaluating the following CNN models for building the visual search based recommender system:
+
+      <br><br>
+
+      <strong>Transfer Learning with VGG:</strong> The convolution layers of a CNN generate a vector representation of
+      an input image
+      that captures its visual attributes and can be used to compare with the vector representation of other images.
+      Since training a Deep CNN from scratch can be computationally expensive, we propose to use the popular Transfer
+      Learning Technique. The VGG-16 architecture (that is pretrained on the ImageNet dataset) will be used initialize
+      the weights of the convolution layers of our model. Next, the Deep Fashion dataset will be used to train the
+      weights of our model’s dense classification layers to obtain the desired outputs. We will use the pre-trained
+      VGG-16 as our baseline and compare it with our model that was tuned on the Deep Fashion dataset. We will also
+      compare it against the VisNet architecture mentioned below.
+
+      <br><br>
+
+      <strong>VisNet:</strong> <a href="https://arxiv.org/pdf/1703.02344.pdf" target="_blank">VisNet</a> is a deep CNN
+      model proposed by
+      the e-commerce retailer Flipkart. It is modelled on VGG-16 and
+      additionally, contains parallel shallow convolution layers that detect both high and low level image details.
+      This is based on the Triplet based deep ranking model where the input consists of a triplet of three images –
+      positive image(p), negative image(n) and query image(q). It is expected that pq are more visually similar compared
+      to qn.
+      The Street2Shop dataset was used to train VisNet. We propose tuning it on the Deep Fashion dataset and comparing
+      with
+      the Transfer Learning based models.
+
+      <br><br>
+      <strong>Evaluation metrics</strong>
+      <br><br>
+      Metrics like Precision, Accuracy, Recall and F1 score will used to compare the performance of the above Deep
+      Learning models.
+      To measure the distance between the feature vector of input image and the feature vectors of the images in the
+      database,
+      we will use evaluation metrics like Cosine, L1(Manhatten), L2(Euclidean) and Hamming distance. The resulting most
+      similar images
+      will be recommended to the user.
+      Similar images belonging to one category will have minimal distance between their feature vectors. When the user
+      uploads an
+      input query image, the model will recommend the top 10 most similar items from the database to the user.
+      Additionally, a t-sne visualization will provide a holistic view of the similarity of the input image with all
+      the images in the dataset.
+
+      <br><br>
+      <!-- Results -->
+      <h3>Qualitative results</h3>
+      <br><br>
+      
+      <br><br>
+      <!-- Results -->
+      <h3>Conclusion and future work</h3>
+      This report has described...
+      <br><br>
+      
+      <br><br>
+      <!-- Results -->
+      <h3>References</h3>
+      <br><br>
+      A Comprehensive Hands-on Guide to Transfer Learning with Real-World Applications in Deep Learning | by Dipanjan (DJ) Sarkar | Towards Data Science
+      <br>
+      <a href="https://towardsdatascience.com/a-comprehensive-hands-on-guide-to-transfer-learning-with-real-world-applications-in-deep-learning-212bf3b2f27a">
+               https://towardsdatascience.com/a-comprehensive-hands-on-guide-to-transfer-learning-with-real-world-applications-in-deep-learning-212bf3b2f27a</a>
+      <br><br>
+      Transfer Learning with Convolutional Neural Networks in PyTorch | by Will Koehrsen | Towards Data Science
+      <br>
+      <a href="https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce">
+               https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce</a>
+
+
+      
+
+
+
+      <br><br>
+
+
+      <hr>
+      <footer>
+        <p>© Arzoo Irshad, Noah Meine, Jared Veerhoff</p>
+      </footer>
+    </div>
+  </div>
+
+  <br><br>
+
+</body>
+
+</html>
