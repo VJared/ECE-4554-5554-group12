@@ -104,7 +104,7 @@
       <br><br>
 
       The technical approach we will follow begins with using a model such as VGG-16 that uses pretrained weights
-      to produce feature vectors. Then, we will adapt this model to the fashion domain for using transfer learning. This allows
+      to produce feature vectors. Then, we will adapt this model to the fashion domain using transfer learning. This allows
       us to fine-tune
       a model for the purposes of our project quickly. This procedure may even be accelerated by using a cloud computing
       service
@@ -122,14 +122,14 @@
 
       <strong>Progress - ADD YOUR PROGRESS HERE</strong><br><br>
       At this point in the project, we have performed several experiments in adding layers to the VGG16 model. We have also applied transfer learning 
-      using the Fashion MNIST Dataset (see sections below). In addition, we have performed t-SNE and PCA visualizations of the Fashion MNIST dataset that we will build
+      using the Fashion MNIST dataset (see sections below). In addition, we have performed t-SNE and PCA visualizations of the Fashion MNIST dataset that we will build
       upon in our visual recommendation system. Our model performs well on this dataset.<br><br>
 
       In order to perform t-SNE visualizations with projections of Fashion MNIST images, we leveraged tensorflow and tensorboard, as well as google colab
       for access to optimized GPU hardware. We utilized code that can be found 
       <a href="https://github.com/markjay4k/Fashion-MNIST-with-Keras/blob/master/pt3%20-%20FMINST%20Embeddings.ipynb" target="_blank">here</a> 
       (Embeddings Visualization with Fashion MNIST) to perform embedded projections with access to sprite images. We utilize this code as a means to visualize sprite images in low 
-      deminsional space because it provides interesting indicators for image similarity. Ultimatly, we plan to extend this code to support our
+      deminsional space because it provides interesting indicators for image similarity. Ultimatly, we plan to extend this code to further support our
       application.<br><br>
       
       <strong>Obstacles - ADD ANY OBSTACLES YOU FACED HERE</strong><br><br>
@@ -148,7 +148,7 @@
       <strong>Model and Dataset</strong><br><br>
       In order to perform transfer learning on the VGG16 model, we used the Fashion MNIST dataset. This dataset is well known for fashion
       related image classification and allows us to produce feature vectors well alongside the VGG architecture. The dataset contains
-      a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscaleimage that contains a label from 10 possible classes.
+      a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image that contains a label from 10 possible classes.
       The training and test labels are from one of the following classes: <br><br>
       <ul>
         <li>0 T-shirt/top</li>
@@ -189,8 +189,8 @@
       <br><br>
       <strong>Transfer Learning</strong><br><br>
       The next step in our approach was applying transfer learning. We used categorical (one hot) encoding for our
-      training, validation, and test labels. In addition, we used a train/test split with a test_size of 0.2. Here is an excerpt of our training
-      script that uses the sklearn train_test_split function. <br><br>
+      training, validation, and test labels. In addition, we used a train/test split with a test size of 0.2. Here is an excerpt of our training
+      script that uses the sklearn train_test_split() function. <br><br>
       <div style="background-color: #F5F5F5; border-radius: 12px; padding: 8px">
         <samp>
           x_train, x_validate, y_train_one_hot, y_validate_one_hot = train_test_split(<br>
@@ -200,8 +200,8 @@
       </div> <br>
 
       The metrics that we used to evaluate our model during the transfer learning procedure were categorical accuracy and categorical crossentropy for loss.
-      We gathered data about the transfer learning process using tensorboard, and performed testing on the model post transer learning as well. Here is a complete summary of
-      the transfer learning procedure, and some plots collected using tensorboard. <br><br>
+      We gathered data about the transfer learning process using tensorboard, and performed testing on the model post-transfer learning as well. Here is a complete summary of
+      the transfer learning procedure, and plots generated using tensorboard. <br><br>
 
       <div style="background-color: #F5F5F5; border-radius: 12px; padding: 8px; font-size: 12px;">
         <samp>
@@ -251,7 +251,7 @@
         </figure>
       </div> <br><br>
 
-      Here is the final test accuracy and loss.
+      Here is the final test accuracy and loss. <br><br>
       <div style="background-color: #F5F5F5; border-radius: 12px; padding: 8px">
         <samp>
           Test loss:  0.26292872428894043 <br>
@@ -269,11 +269,11 @@
           <div style="text-align: center;">
             <img style="height: 400px;" alt="" src="t-SNE_3d.JPG">
           </div><br>
-          Here is a sample PCA projection of the same dataset in 3 dimensional. <br><br>
+          Here is a sample PCA projection of the same dataset in 3 dimensions. <br><br>
           <div style="text-align: center;">
             <img style="height: 400px;" alt="" src="PCA_3d.JPG">
           </div>
-          Here is a 3 dimensional t-SNE projection created using feature vectors from our system. <br><br>
+          Here is a 2 dimensional t-SNE projection created using feature vectors from our system (zoom in). <br><br>
           <div style="text-align: center;">
             <img style="height: 400px;" alt="" src="sprite.png">
           </div>
