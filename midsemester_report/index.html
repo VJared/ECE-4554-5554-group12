@@ -81,7 +81,7 @@
       Fashion MNIST datasets. In order to quantify and assess image similarity, we will implement our own algorithm that
       uses the outputs of our retrained model as data. To perform a two deminsional visualization of image similarity,
       we use <a href="https://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>.
-
+      <br><br>
       We will then compare the results of this model with another deep learning model based on the
             <a href="https://arxiv.org/pdf/1703.02344.pdf"
               target="_blank">VisNet</a> and <a href="https://arxiv.org/pdf/1404.4661.pdf"
@@ -143,7 +143,7 @@
       10 dimensions, on the fashion-MNIST dataset.
       <br><br>
       We will also implement a simpler version of the architecture described in the
-      Deep Ranking paper that consists of a multiscale network structure that is known
+      Deep Ranking paper that consists of a multiscale network that is known
       to capture fine-grained similarity between images. The network consists of three segments –
       a triplet sampling layer, 3 parallel convolutional networks that share weights,
       and a final ranking layer. Each convolutional network is essentially a deep multiscale
@@ -151,7 +151,7 @@
       that capture low level features.
       <br><br>
 
-      <div style="text-align: center;">
+      <div style="text-align: left;">
         <img style="height: 200px;" alt="" src="DeepRank.png">
       </div>
       Figure: Deep Rank network architecture (image source: <a href="https://arxiv.org/pdf/1404.4661.pdf"
@@ -159,9 +159,10 @@
 
       <br><br>
 
-      In our project, we will reduce the computational complexity of the deep ranking architecture
+      In our project, we will reduce the computational complexity of the above deep ranking architecture
       by using a single convet instead of three parallel convets and feed the triplets sequentially
       instead of parallelly.
+      <br><br>
 
       The Deep Ranking paper describes an online sampling technique to generate a triplet of images –
       query image, positive image and negative image. Each of the images in the triplet are fed to
@@ -171,8 +172,8 @@
       and negative images is maximised. The loss is then backpropagated through the network during
       training. The embeddings generated through this network capture the notion of relative
       similarity between images as opposed to the previous transfer learning based model on
-      VGG-16 that capture absolute similarity between the images in its embeddings.
-
+      VGG-16 that captured absolute similarity between the images in its embeddings.
+      <br><br>
       Based on the accuracy of the above models, we select the configuration that best suits our
       desired performance and use it to generate feature vectors for all the images in the database.
       We will then use the selected model to produce feature vectors for a user specified input
@@ -226,7 +227,6 @@
         <li>9 Ankle boot</li>
       </ul>
       <br>
-      <br><br>
       <strong>Transfer Learning</strong><br><br>
       Next, we adapted the dataset to support the base VGG16 model by adding an additional 2 color channels and scaling the images to 48x48 pixels using openCV
       methods. We then defined our base VGG16 model using pretrained weights and removed the top layer used for classification. In order to adapt the model to
@@ -325,7 +325,6 @@
       </div> <br>
 
       <strong>Deep Ranking</strong><br><br>
-        <br><br>
         In the next stage of the project we will implement another deep learning model
         for image similarity that is based on the deep ranking architecture. For this project,
         we will implement a simpler version of the triplet sampling technique to generate the
@@ -333,7 +332,9 @@
         generate the triplets or utilize an existing dataset of triplets
         <a href="https://sites.google.com/site/imagesimilaritydata/download"
         target="_blank">triplet.txt</a>
-        and augment it if necessary. For the convnet segment, we will replace the AlexNet
+        and augment it if necessary.
+        <br><br>
+        For the convnet segment, we will replace the AlexNet
         with VGG-16 (similar to the Visnet architecture) in Keras and use the concatenate
         function in Keras to combine it with the two shallow convolutional layers.
         The final Ranking layer will compute the Hinge loss or a Triplet loss to train the
@@ -398,6 +399,17 @@
       Visualizing Data using the Embedding Projector in TensorBoard
       <br>
       <a href="https://www.tensorflow.org/tensorboard/tensorboard_projector_plugin">https://www.tensorflow.org/tensorboard/tensorboard_projector_plugin</a>
+
+      <br><br>
+      Learning Fine-grained Image Similarity with Deep Ranking
+      <br>
+      <a href="https://arxiv.org/pdf/1404.4661.pdf">https://arxiv.org/pdf/1404.4661.pdf</a>
+
+      <br><br>
+      Deep Learning based Large Scale Visual Recommendation and Search for E-Commerce
+      <br>
+      <a href="https://arxiv.org/pdf/1703.02344.pdf">https://arxiv.org/pdf/1703.02344.pdf</a>
+
 
       <br><br>
 
