@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Computer Vision Course Project
+    | ECE, Virginia Tech | Fall 2020: ECE 4554/5554</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Le styles -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/custom_styles.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 60px;
+      /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+
+    .vis {
+      color: #3366CC;
+    }
+
+    .data {
+      color: #FF9900;
+    }
+  </style>
+
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+  <div class="container">
+    <div class="page-header">
+
+      <!-- Title and Name -->
+      <h1>Midsemester Report</h1>
+      <h1>Visual Search Based Recommendation System</h1>
+      <span style="font-size: 20px; line-height: 1.5em;"><strong>Syeda Arzoo Irshad, Noah Meine, Jared
+          Veerhoff</strong></span><br>
+      <span style="font-size: 18px; line-height: 1.5em;">Fall 2020 ECE 4554/5554 Computer Vision: Course
+        Project</span><br>
+      <span style="font-size: 18px; line-height: 1.5em;">Virginia Tech</span>
+      <hr>
+
+      <!-- T-SNE Embedding GIF -->
+      <div style="text-align: center;">
+        <figure class="figure">
+          <img style="height: 400px;" alt="" src="tsne_gif.gif">
+          <figcaption class="figure-caption">
+            <span style="font-size: 12px; line-height: 1.5em;">
+              t-SNE Embeddings of the Fashion MNIST Dataset
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+
+
+      <!-- Goal -->
+      <h3>Abstract</h3>
+
+      Many current visual recommendation systems do not allow a user to visualize the difference or similarity
+      between
+      images. In this project, we implement our own visual recommendation
+      system. This project will allow a user to visualize the similarity between their input image and additional images in 
+      two-dimensional space. Our project is tailored to work with fashion items (clothes, brands, outfits), as there are many
+      exciting applications for visual recommendation in the fashion/e-commerce domain.<br><br>
+
+      We use a pre-trained model in image classification based on the <a href="https://arxiv.org/abs/1505.06798"
+        target="_blank">VGG16</a> model because of its strong performance in
+      visual recognition. We then implement transfer learning to optimize its performance with fashion items by
+      using the <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" target="_blank">DeepFashion</a> and/or
+      Fashion MNIST datasets. In order to quantify and assess image similarity, we will implement our own algorithm that
+      uses the outputs of our retrained model as data. To perform a two deminsional visualization of image similarity,
+      we use <a href="https://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>.
+      <br><br>
+      We will then compare the results of this model with another deep learning model based on the
+            <a href="https://arxiv.org/pdf/1703.02344.pdf"
+              target="_blank">VisNet</a> and <a href="https://arxiv.org/pdf/1404.4661.pdf"
+                target="_blank">Deep Ranking architecture.</a>
+      In this model the VGG16 network is combined with two parallel shallow neural networks to learn the fine-grained similarity
+      in images. The input to the model will consist of a triplet of images – query image, positive image (closely related to
+      the query image), and a negative image (different from the query image). The model will be trained to generate embeddings
+      for an input image using a triplet loss based approach such that the distance between embeddings of similar images
+      (query and positive) will be lesser than that of dissimilar images (query and negative image).
+      <br><br>
+
+      We will deploy our project as a
+      self-contained application. The application will take an input image and provide the user with recommended similar
+      or
+      complementary items, and a visual representation of how similar certain images are to the input image.
+
+      <br><br>
+      <h3>Introduction</h3>
+      Text based queries often don’t yield accurate results. For instance,
+      one comes across an object of interest (a dress that someone’s wearing or a
+      show piece in a store that’s not for sale). A text based search for this object
+      on the internet can yield closely related items but may not retrieve the exact item.
+      Visual search based systems can effectively solve this problem by allowing the user
+      to query an image instead of a text and retrieve more accurate results.
+      This project aims to develop a visual search based recommender system that
+      will allow the user to input a query image and generate a list of top-N most
+      similar images from our database.
+        <br><br>
+      We will utilize the VGG16 model that was pre-trained on the vast ImageNet dataset
+      and apply transfer learning methods to retrain the network or modify the architecture
+      (Deep Ranking) for a specific fashion items based dataset that suits our projects goals.
+      This project finds use in applications like Pinterest where users can capture images on their
+      phone cameras and upload it on the app to find similar images.
+
+      <br><br>
+
+
+
+      <!-- figure -->
+      <h3>Approach</h3>
+      This flowchart demonstrates the approach we will follow and continue to build upon when accomplishing our project goals.
+      <br><br>
+      <!-- Main Illustrative Figure -->
+      <div style="text-align: center;">
+        <img style="height: 200px;" alt="" src="flowchart.png">
+      </div>
+
+      <br><br>
+
+      The technical approach we will follow begins with using a model such as VGG16 that
+      uses pretrained weights to produce feature vectors. Then, we will adapt this model to
+      the fashion domain using transfer learning. This allows us to fine-tune a model for the
+      purposes of our project quickly. This procedure may even be accelerated by using a cloud
+      computing service to generate the best results possible. We will treat the pretrained VGG16
+      (without any transfer learning) as our baseline model and observe the top-N recommended
+      images for our query image and compare it with the results of the transfer learning based
+      models. To perform transfer learning, we will retrain the last four layers of VGG16, after
+      replacing its last layer with a fully-connected dense layer and a final output layer of
+      10 dimensions, on the fashion-MNIST dataset.
+      <br><br>
+      We will also implement a simpler version of the architecture described in the
+      Deep Ranking paper that consists of a multiscale network that is known
+      to capture fine-grained similarity between images. The network consists of three segments –
+      a triplet sampling layer, three parallel convolutional networks that share weights,
+      and a final ranking layer. Each convolutional network is essentially a deep multiscale
+      neural network consisting of one AlexNet model and two parallel shallow convolutional layers
+      that capture low level features.
+      <br><br>
+
+      <div style="text-align: left;">
+        <img style="height: 200px;" alt="" src="DeepRank.png">
+      </div>
+      Figure: Deep Rank network architecture (image source: <a href="https://arxiv.org/pdf/1404.4661.pdf"
+      target="_blank">Learning Fine-grained Image Similarity with Deep Ranking</a>).
+
+      <br><br>
+
+      In our project, we will reduce the computational complexity of the above deep ranking architecture
+      by using a single convolutional network (convnet) instead of three parallel convnets and feed the triplets sequentially
+      instead of in parallel.
+      <br><br>
+
+      The Deep Ranking paper describes an online sampling technique to generate a triplet of images –
+      query image, positive image and negative image. Each of the images in the triplet are fed to
+      parallel convnets that generate embeddings for the input image. The final ranking layer
+      calculates a hinge loss such that the Squared Euclidean distance between the embeddings of
+      query and positive images is minimised while the distance between the embeddings of query
+      and negative images is maximised. The loss is then backpropagated through the network during
+      training. The embeddings generated through this network capture the notion of relative
+      similarity between images as opposed to the previous transfer learning based model on
+      VGG16 that captured absolute similarity between the images in its embeddings.
+      <br><br>
+      Based on the accuracy of the above models, we select the configuration that best suits our
+      desired performance and use it to generate feature vectors for all the images in the database.
+      We will then use the selected model to produce feature vectors for a user specified input
+      image, and compare it with the feature vectors in the database using a similarity metric or
+      using an algorithm like <i>k</i>-nearest neighbors (<i>k</i>-NN) to find the top-n most similar images to
+      the query image. We will then display the similarity between images using these vectors,
+      and plot them in low dimensional space using t-SNE and/or PCA to provide a visualization.
+
+      <br><br>
+
+      <strong>Progress </strong><br><br>
+      At this point in the project, we have performed several experiments in adding layers to the VGG16 model. We have also applied transfer learning
+      using the Fashion MNIST dataset (see sections below). In addition, we have performed t-SNE and PCA visualizations of the Fashion MNIST dataset that we will build
+      upon in our visual recommendation system. Our model perforns well on this dataset, and shows improvements when tested against the original pre-trained VGG16 model.
+      <br><br>
+
+      In order to perform t-SNE visualizations with projections of Fashion MNIST images, we leveraged tensorflow and tensorboard, as well as google colab
+      for access to optimized GPU hardware. We utilized code that can be found
+      <a href="https://github.com/markjay4k/Fashion-MNIST-with-Keras/blob/master/pt3%20-%20FMINST%20Embeddings.ipynb" target="_blank">here</a>
+      (Embeddings Visualization with Fashion MNIST) to perform embedded projections with access to sprite images. We utilize this code as a means to visualize sprite images in low
+      deminsional space because it provides interesting indicators for image similarity. Ultimatly, we plan to extend this code to further support our
+      application.<br><br>
+
+      <strong>Obstacles </strong><br><br>
+      One obstacle we faced while attempting to implement transfer learning was trying to speed up the training process
+      in order to perform more experiments. We overcame this obstacle with the help of
+      <a href="https://colab.research.google.com/github/tensorflow/examples/blob/master/courses/udacity_intro_to_tensorflow_for_deep_learning/l01c01_introduction_to_colab_and_python.ipynb"
+      target="_blank">Google Colaboratory</a>, which offers free access
+      to optimized GPU hardware. Another obstacle we faced when trying to perform t-SNE visualizations of our data was that the documentation
+      for tensorboard did not provide any similar refrence material for our desired use case. To overcome this obstacle, we utilized the code refrenced
+      above.
+
+
+      <br><br>
+      <!-- Results -->
+      <h3>Experiments and Results</h3>
+      <strong>Model and Dataset</strong><br><br>
+      In order to perform transfer learning on the VGG16 model, we used the Fashion MNIST dataset. This dataset is well known for fashion
+      related image classification and allows us to produce feature vectors well alongside the VGG architecture. The dataset contains
+      a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image that contains a label from 10 possible classes.
+      The training and test labels are from one of the following classes: <br><br>
+      <ul>
+        <li>0 T-shirt/top</li>
+        <li>1 Trouser</li>
+        <li>2 Pullover</li>
+        <li>3 Dress</li>
+        <li>4 Coat</li>
+        <li>5 Sandal</li>
+        <li>6 Shirt</li>
+        <li>7 Sneaker</li>
+        <li>8 Bag</li>
+        <li>9 Ankle boot</li>
+      </ul>
+      <br>
+      <strong>Transfer Learning</strong><br><br>
+      Next, we adapted the dataset to support the base VGG16 model by adding an additional two color channels and scaling the images to 48x48 pixels using openCV
+      methods. We then defined our base VGG16 model using pretrained weights and removed the top layer used for classification. In order to adapt the model to
+      the Fashion MNIST dataset, we added several layers to flatten the last VGG16 output layer and classify the images into 10 classes. Below is a summary of the model
+      that was created. <br><br>
+
+      <div style="background-color: #F5F5F5; border-radius: 12px; padding: 8px">
+        <samp>
+          _________________________________________________________________<br>
+          Layer (type)        Output Shape        Param #   <br>
+          =================================================================<br>
+          vgg16 (Functional)           (None, 1, 1, 512)         14714688  <br>
+          _________________________________________________________________ <br>
+          flatten_1 (Flatten)          (None, 512)               0          <br>
+          _________________________________________________________________ <br>
+          fc1 (Dense)                  (None, 1024)              525312     <br>
+          _________________________________________________________________ <br>
+          predictions (Dense)          (None, 10)                10250      <br>
+          ================================================================= <br>
+          Total params: 15,250,250 <br>
+          Trainable params: 7,614,986 <br>
+          Non-trainable params: 7,635,264 <br>
+        </samp>
+      </div>
+      <br><br>
+
+      The next step in our approach was applying transfer learning. We used categorical (one hot) encoding for our
+      training, validation, and test labels. In addition, we used a train/test split with a test size of 0.2. Here is an excerpt of our training
+      script that uses the sklearn train_test_split() function. <br><br>
+      <div style="background-color: #F5F5F5; border-radius: 12px; padding: 8px">
+        <samp>
+          x_train, x_validate, y_train_one_hot, y_validate_one_hot = train_test_split(<br>
+          &nbsp;&nbsp;&nbsp;&nbsp; x_train, y_train_one_hot, test_size=0.2, random_state=13,<br>
+        )
+        </samp>
+      </div> <br>
+
+      The metrics that we used to evaluate our model during the transfer learning procedure were categorical accuracy and categorical crossentropy for loss.
+      We gathered data about the transfer learning process using tensorboard, and performed testing on the model post-transfer learning as well. Below is a complete summary of
+      the transfer learning procedure, including plots generated using tensorboard. <br><br>
+
+      <div style="background-color: #F5F5F5; border-radius: 12px; padding: 8px; font-size: 12px;">
+        <samp>
+        Epoch 1/12 <br>
+        375/375 [==============================] - 23s 62ms/step - loss: 0.4312 - categorical_accuracy: 0.8467 - val_loss: 0.3378 - val_categorical_accuracy: 0.8791 <br>
+        Epoch 2/12 <br>
+        375/375 [==============================] - 23s 61ms/step - loss: 0.2597 - categorical_accuracy: 0.9059 - val_loss: 0.2599 - val_categorical_accuracy: 0.9071 <br>
+        Epoch 3/12 <br>
+        375/375 [==============================] - 23s 62ms/step - loss: 0.2212 - categorical_accuracy: 0.9183 - val_loss: 0.2496 - val_categorical_accuracy: 0.9113 <br>
+        Epoch 4/12 <br>
+        375/375 [==============================] - 23s 62ms/step - loss: 0.1972 - categorical_accuracy: 0.9269 - val_loss: 0.2621 - val_categorical_accuracy: 0.9104 <br>
+        Epoch 5/12 <br>
+        375/375 [==============================] - 23s 62ms/step - loss: 0.1799 - categorical_accuracy: 0.9353 - val_loss: 0.2461 - val_categorical_accuracy: 0.9164 <br>
+        Epoch 6/12 <br>
+        375/375 [==============================] - 23s 62ms/step - loss: 0.1655 - categorical_accuracy: 0.9399 - val_loss: 0.2256 - val_categorical_accuracy: 0.9213 <br>
+        Epoch 7/12 <br>
+        375/375 [==============================] - 24s 63ms/step - loss: 0.1519 - categorical_accuracy: 0.9447 - val_loss: 0.2367 - val_categorical_accuracy: 0.9214 <br>
+        Epoch 8/12 <br>
+        375/375 [==============================] - 23s 63ms/step - loss: 0.1391 - categorical_accuracy: 0.9493 - val_loss: 0.2597 - val_categorical_accuracy: 0.9179 <br>
+        Epoch 9/12 <br>
+        375/375 [==============================] - 24s 63ms/step - loss: 0.1280 - categorical_accuracy: 0.9537 - val_loss: 0.2467 - val_categorical_accuracy: 0.9189 <br>
+        Epoch 10/12 <br>
+        375/375 [==============================] - 24s 63ms/step - loss: 0.1201 - categorical_accuracy: 0.9561 - val_loss: 0.2632 - val_categorical_accuracy: 0.9241 <br>
+        Epoch 11/12 <br>
+        375/375 [==============================] - 23s 63ms/step - loss: 0.1139 - categorical_accuracy: 0.9591 - val_loss: 0.3109 - val_categorical_accuracy: 0.9132 <br>
+        Epoch 12/12 <br>
+        375/375 [==============================] - 23s 63ms/step - loss: 0.1070 - categorical_accuracy: 0.9618 - val_loss: 0.2575 - val_categorical_accuracy: 0.9220 <br>
+        </samp>
+      </div> <br>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <figure class="figure">
+          <img style="height: 200px;" alt="" src="epoch_categorical_accuracy_final.svg">
+          <figcaption class="figure-caption">
+            <span style="font-size: 12px; line-height: 1.5em;">
+              Categorical Accuracy vs. Number of Epochs
+            </span>
+          </figcaption>
+        </figure>
+        <figure class="figure">
+          <img style="height: 200px;" alt="" src="epoch_loss_final.svg">
+          <figcaption class="figure-caption">
+            <span style="font-size: 12px; line-height: 1.5em;">
+              Categorical Crossentropy vs. Number of Epochs
+            </span>
+          </figcaption>
+        </figure>
+      </div> <br><br>
+
+      Final test accuracy and loss. <br><br>
+      <div style="background-color: #F5F5F5; border-radius: 12px; padding: 8px">
+        <samp>
+          Test loss:  0.26292872428894043 <br>
+          Test accuracy:  0.9182000160217285
+        </samp>
+      </div> <br>
+
+      <strong>Deep Ranking</strong><br><br>
+        In the next stage of the project we will implement another deep learning model
+        for image similarity that is based on the deep ranking architecture. For this project,
+        we will implement a simpler version of the triplet sampling technique to generate the
+        triplets. Instead of an online sampling technique, we will use uniform sampling to
+        generate the triplets or utilize an existing dataset of triplets
+        <a href="https://sites.google.com/site/imagesimilaritydata/download"
+        target="_blank">triplet.txt</a>
+        and augment it if necessary.
+        <br><br>
+        For the convnet segment, we will replace the AlexNet
+        with VGG16 (similar to the Visnet architecture) in Keras and use the concatenate
+        function in Keras to combine it with the two shallow convolutional layers.
+        The final Ranking layer will compute the Hinge loss or a Triplet loss to train the
+        network based on relative similarity between the triplet images.
+        <br><br>
+
+
+
+      <!-- Results -->
+      <h3>Qualitative Results</h3>
+      <strong>t-SNE and PCA Visualization</strong><br><br>
+          Currently, our system can support t-SNE and PCA visualizations of input data. Shown below is a sample t-SNE projection on 1600 Fashion MNIST images
+          in three-dimensional space. Notice how groups of similar images form in the image.<br><br>
+          <div style="text-align: center;">
+            <img style="height: 400px;" alt="" src="t-SNE_3d.JPG">
+          </div><br>
+          Sample PCA projection of the same dataset in three dimensions. <br><br>
+          <div style="text-align: center;">
+            <img style="height: 400px;" alt="" src="PCA_3d.JPG">
+          </div>
+          Two-dimensional t-SNE projection created using feature vectors from our system (zoom in). <br><br>
+          <div style="text-align: center;">
+            <img style="height: 400px;" alt="" src="sprite.png">
+          </div>
+
+      <br><br>
+      <!-- Results -->
+      <h3>Conclusion and Future Work</h3>
+      In the final stage of the project, we will test the above models on different query
+      images and generate the top-N most similar items using distance metrics like L1, L2
+      norm or use <i>k</i>-NN. The performace of We will compare the performance of the above architectures and
+      use the best performing model in our visual search based recommender system where
+      the user can query any input image in the fashion domain to obtain top-N most similar
+      items from the database.
+      <br><br>
+
+      <!-- Results -->
+      <h3>References</h3>
+      Fashion MNIST
+      <br>
+      <a href="https://www.kaggle.com/zalando-research/fashionmnist">https://www.kaggle.com/zalando-research/fashionmnist</a>
+
+      <br><br>
+      A Comprehensive Hands-on Guide to Transfer Learning with Real-World Applications in Deep Learning | by Dipanjan (DJ) Sarkar | Towards Data Science
+      <br>
+      <a href="https://towardsdatascience.com/a-comprehensive-hands-on-guide-to-transfer-learning-with-real-world-applications-in-deep-learning-212bf3b2f27a">
+               https://towardsdatascience.com/a-comprehensive-hands-on-guide-to-transfer-learning-with-real-world-applications-in-deep-learning-212bf3b2f27a</a>
+      <br><br>
+      Transfer Learning with Convolutional Neural Networks in PyTorch | by Will Koehrsen | Towards Data Science
+      <br>
+      <a href="https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce">
+               https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce</a>
+
+      <br><br>
+      Embeddings Visualization with Fashion MNIST
+      <br>
+      <a href="https://github.com/markjay4k/Fashion-MNIST-with-Keras/blob/master/pt3%20-%20FMINST%20Embeddings.ipynb">
+        https://github.com/markjay4k/Fashion-MNIST-with-Keras/blob/master/pt3%20-%20FMINST%20Embeddings.ipynb</a>
+
+      <br><br>
+      Visualizing Data using the Embedding Projector in TensorBoard
+      <br>
+      <a href="https://www.tensorflow.org/tensorboard/tensorboard_projector_plugin">https://www.tensorflow.org/tensorboard/tensorboard_projector_plugin</a>
+
+      <br><br>
+      Learning Fine-grained Image Similarity with Deep Ranking
+      <br>
+      <a href="https://arxiv.org/pdf/1404.4661.pdf">https://arxiv.org/pdf/1404.4661.pdf</a>
+
+      <br><br>
+      Deep Learning based Large Scale Visual Recommendation and Search for E-Commerce
+      <br>
+      <a href="https://arxiv.org/pdf/1703.02344.pdf">https://arxiv.org/pdf/1703.02344.pdf</a>
+
+
+      <br><br>
+
+
+      <hr>
+      <footer>
+        <p>© Arzoo Irshad, Noah Meine, Jared Veerhoff</p>
+      </footer>
+    </div>
+  </div>
+
+  <br><br>
+
+</body>
+
+</html>
