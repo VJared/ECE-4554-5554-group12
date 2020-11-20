@@ -163,7 +163,7 @@
       visualization of image similarity in low-dimensional space. We return the user a list of similar images and the t-SNE plot. <br><br>
 
       <strong>## ADD relevant info here about any other steps you took in your approaches</strong>
-
+    
 
       <br><br>
       
@@ -177,7 +177,73 @@
       <br><br>
       <!-- Results -->
       <h3>Experiments and Results</h3>
-      <strong>Model and Dataset</strong><br><br>
+      <strong>ResNet18 and DeepFashion</strong><br><br>
+        The DeepFashion dataset contains over 200K images with descriptive labels across 46 different categories. This dataset is well known
+        for complex image classification and similarity problems. The images are different sizes, making it a good fit for our intented application.
+        The set of images we used to train our model consisted of 209,222 training images, 40,000 validation images, and 40,000 test images.
+        Next, we used this dataset to conduct transfer learning on the pretrained model.     
+        In order to apply transfer learning, we first determined the learning rate
+        we should limit our model to. Below is a plot of our learning rate findings. Tweaking the learning rate value led to a change in the total time
+        it took to train our model. <br><br>
+
+        <div style="text-align: center; margin-top: 20px;">
+          <figure class="figure">
+            <img style="height: 200px;" alt="" src="learning_rate_resnet18.png">
+            <figcaption class="figure-caption">
+              <span style="font-size: 12px; line-height: 1.5em;">
+                Learning Rate Suggestion
+              </span>
+            </figcaption>
+          </figure>
+        </div> <br><br>
+
+        Using this learning rate, we applied transfer learning. The metrics we used to evaluate the model were accuracy, top-1 accuracy, and top-5 accuracy. We included top-N accuracy because it is relevant
+        to our desired use case. We want to provide the user with a collection of similar images, not a single prediction.
+        The complete summary of the transfer learning process is shown below. <br><br>
+        <div style="background-color: #F5F5F5; border-radius: 12px; padding: 8px">
+          <samp>
+            ----------------------------------------------------------------------------------------------------<br>
+            epoch&nbsp;&nbsp;&nbsp;&nbsp;train_loss&nbsp;&nbsp;&nbsp;&nbsp;valid_loss&nbsp;&nbsp;&nbsp;&nbsp;accuracy&nbsp;&nbsp;&nbsp;&nbsp;top_1_accuracy&nbsp;&nbsp;&nbsp;&nbsp;top_5_accuracy&nbsp;&nbsp;&nbsp;&nbsp;time<br>
+            0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.639774&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.476857&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.566800&nbsp;&nbsp;&nbsp;&nbsp;0.566800&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.885500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:57<br>
+            1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.583464&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.486946&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.565150&nbsp;&nbsp;&nbsp;&nbsp;0.565150&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.876175&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:55<br>
+            2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.583681&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.493149&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.559150&nbsp;&nbsp;&nbsp;&nbsp;0.559150&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.874550&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17:00<br>
+            3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.532783&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.467412&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.576425&nbsp;&nbsp;&nbsp;&nbsp;0.576425&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.879400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17:13<br>
+            4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.522732&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.369081&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.596525&nbsp;&nbsp;&nbsp;&nbsp;0.596525&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.894675&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17:06<br>
+            5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.461197&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.363835&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.597000&nbsp;&nbsp;&nbsp;&nbsp;0.597000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.895925&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:55<br>
+            6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.406832&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.316558&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.610000&nbsp;&nbsp;&nbsp;&nbsp;0.610000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.903850&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:54<br>
+            7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.371371&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.274097&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.623450&nbsp;&nbsp;&nbsp;&nbsp;0.623450&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.911050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17:05<br>
+            8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.360969&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.248707&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.631025&nbsp;&nbsp;&nbsp;&nbsp;0.631025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.913025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17:02<br>
+            9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.354846&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.246133&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.632725&nbsp;&nbsp;&nbsp;&nbsp;0.632725&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.913025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:59<br>
+            ----------------------------------------------------------------------------------------------------<br>
+          </samp>
+        </div> <br><br>
+
+        Finally, we evaluated our model in a variety of ways. First, we observed the confusion matrix generated from our model, and then ploted some of the top losses from our model.
+        The confusion matrix and an array of the top losses can be seen below. Both of these images, along with the metrics from training indicate a reasonable level of performance from our model. <br><br>
+
+        <div style="text-align: center; display: flex; margin: 0;">
+          <figure class="figure" style="float: left;">
+            <img style="height: 400px; width: 100%;" alt="" src="confusion_matrix_resnet18.png">
+            <figcaption class="figure-caption">
+              <span style="font-size: 12px; line-height: 1.5em;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Confusion Matrix (zoom in)
+              </span>
+            </figcaption>
+          </figure>
+          <figure class="figure" style="float: left; width: 100%;">
+            <img style="height: 400px;" alt="" src="top_losses_resnet18.png">
+            <figcaption class="figure-caption">
+              <span style="font-size: 12px; line-height: 1.5em;">
+                Top Losses (zoom in)
+              </span>
+            </figcaption>
+          </figure>
+        </div> <br><br>
+
+
+        <br><br>
+
+      <strong>VGG16 and Fashion-MNIST</strong><br><br>
       In order to perform transfer learning on the VGG16 model, we used the Fashion MNIST dataset. This dataset is well known for fashion
       related image classification and allows us to produce feature vectors well alongside the VGG architecture. The dataset contains
       a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image that contains a label from 10 possible classes.
@@ -292,7 +358,7 @@
         </samp>
       </div> <br>
 
-      <strong>Deep Ranking</strong><br><br>
+      <strong>Deep Ranking - UPDATE/REMOVE AS NECESSARY</strong><br><br>
         In the next stage of the project we will implement another deep learning model
         for image similarity that is based on the deep ranking architecture. For this project,
         we will implement a simpler version of the triplet sampling technique to generate the
@@ -309,26 +375,56 @@
         network based on relative similarity between the triplet images.
         <br><br>
 
+        <strong>Discussion of Models, Datasets, and Results</strong><br><br>
 
+        For our application, the ResNet18 model and DeepFashion dataset were selected for use in the final application. This is because
+        the DeepFashion dataset is much more representative of a user image query than Fashion-MNIST, and produces a high level of accuracy. ResNet18 was selected
+        over VGG16 because it was more efficient to train and use, while providing better results for our intented application.
 
       <!-- Results -->
       <h3>Qualitative Results</h3>
-      <strong>t-SNE and PCA Visualization</strong><br><br>
-          Currently, our system can support t-SNE and PCA visualizations of input data. Shown below is a sample t-SNE projection on 1600 Fashion MNIST images
-          in three-dimensional space. Notice how groups of similar images form in the image.<br><br>
-          <div style="text-align: center;">
-            <img style="height: 400px;" alt="" src="t-SNE_3d.JPG">
-          </div><br>
-          Sample PCA projection of the same dataset in three dimensions. <br><br>
-          <div style="text-align: center;">
-            <img style="height: 400px;" alt="" src="PCA_3d.JPG">
-          </div>
-          Two-dimensional t-SNE projection created using feature vectors from our system (zoom in). <br><br>
-          <div style="text-align: center;">
-            <img style="height: 400px;" alt="" src="sprite.png">
-          </div>
-
-      <br><br>
+      <strong>Visual Recommendations</strong><br><br>
+          Here is an example of two visual recommendations. In each recommendation, the user input image is listed on the left and the top 9 most similar images from the dataset
+          are displayed next to it. Also find a t-SNE plot of the corresponding images below. <br><br>
+          <!-- T-SNE Embedding GIF -->
+      <div style="text-align: center; width:100%; height: 600px; position: relative;">
+        <figure class="figure" style="position: absolute; top:0; left: -100px; width: 50%">
+          <img style="height: 600px;" alt="" src="example_hoodies.png">
+          <figcaption class="figure-caption">
+            <span style="font-size: 12px; line-height: 1.5em;">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Visual Recommendations using DeepFashion
+            </span>
+          </figcaption>
+        </figure>
+        <figure class="figure" style="position: absolute; top:0; right: -100px; width: 50%">
+          <img style="height: 600px;" alt="" src="lakers.JPG">
+          <figcaption class="figure-caption">
+            <span style="font-size: 12px; line-height: 1.5em;">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Visual Recommendations using DeepFashion
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+      <br><br><br>
+      <div style="text-align: center; width:100%; height: 400px; position: relative;">
+        <figure class="figure" style="position: absolute; top:-40px; left: -100px; width: 50%">
+          <img alt="" src="hoodie-tsne.JPG">
+          <figcaption class="figure-caption">
+            <span style="font-size: 12px; line-height: 1.5em;">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; t-SNE Hoodie Projections
+            </span>
+          </figcaption>
+        </figure>
+        <figure class="figure" style="position: absolute; top:0; right: -100px; width: 50%">
+          <img alt="" src="lakers-tsne.JPG">
+          <figcaption class="figure-caption">
+            <span style="font-size: 12px; line-height: 1.5em;">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; t-SNE Jersey Projections
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+      <br><br><br>
       <!-- Results -->
       <h3>Conclusion and Future Work</h3>
       In the final stage of the project, we will test the above models on different query
@@ -376,6 +472,11 @@
       Deep Learning based Large Scale Visual Recommendation and Search for E-Commerce
       <br>
       <a href="https://arxiv.org/pdf/1703.02344.pdf">https://arxiv.org/pdf/1703.02344.pdf</a>
+
+      <br><br>
+      Building a Personalized Real-Time Fashion Collection Recommender
+      <br>
+      <a href="https://towardsdatascience.com/building-a-personalized-real-time-fashion-collection-recommender-22dc90c150cb">https://towardsdatascience.com/building-a-personalized-real-time-fashion-collection-recommender-22dc90c150cb</a>
 
 
       <br><br>
