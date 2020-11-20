@@ -78,17 +78,18 @@
       between
       images. In this project, we implement our own visual recommendation
       system. This project will allow a user to visualize the similarity between their input image and additional images in 
-      two-dimensional space. Our project is tailored to work with fashion items (clothes, brands, outfits), as there are many
+      low-dimensional space. Our project is tailored to work with fashion items (clothes, brands, outfits), as there are many
       exciting applications for visual recommendation in the fashion/e-commerce domain.<br><br>
 
-      We use a pre-trained model in image classification based on the <a href="https://arxiv.org/abs/1505.06798"
-        target="_blank">VGG16</a> model because of its strong performance in
+      We use a pre-trained model in image classification based on the <a href="https://arxiv.org/abs/1512.03385"
+        target="_blank">ResNet18</a> model because of its strong performance in
       visual recognition. We then implement transfer learning to optimize its performance with fashion items by
-      using the <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" target="_blank">DeepFashion</a> and/or
-      Fashion MNIST datasets. In order to quantify and assess image similarity, we will implement our own algorithm that
-      uses the outputs of our retrained model as data. To perform a two deminsional visualization of image similarity,
-      we use <a href="https://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>.
+      using the <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" target="_blank">DeepFashion</a> and
+      Fashion MNIST datasets. We implement our own algorithm to generate image feature vectors and use Spotify's <a href="https://github.com/spotify/annoy" target="_blank">Annoy</a> library to access similar images.
+      Finally, we provide the user with the top-n most recommended images and perform a low-deminsional visualization of image similarity
+      using <a href="https://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>.
       <br><br>
+      <strong>UPDATE THIS SECTION</strong><br>
       We will then compare the results of this model with another deep learning model based on the
             <a href="https://arxiv.org/pdf/1703.02344.pdf"
               target="_blank">VisNet</a> and <a href="https://arxiv.org/pdf/1404.4661.pdf"
@@ -100,10 +101,9 @@
       (query and positive) will be lesser than that of dissimilar images (query and negative image).
       <br><br>
 
-      We will deploy our project as a
-      self-contained application. The application will take an input image and provide the user with recommended similar
-      or
-      complementary items, and a visual representation of how similar certain images are to the input image.
+      We have deployed our project as a self-contained application using Google Colab. Our application achieves a high level of
+      qualitative accuracy for image recommendations. After applying transfer learning, our model achieves a top-5 accuracy of 91% 
+      on the DeepFashion dataset (see experimental results). We aim to extend our application into a being a stand-alone web application.
 
       <br><br>
       <h3>Introduction</h3>
