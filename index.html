@@ -76,8 +76,8 @@
 
       Many current visual recommendation systems do not allow a user to visualize the difference or similarity
       between
-      images. In this project, we implement our own visual recommendation
-      system. This project will allow a user to visualize the similarity between their input image and additional images in 
+      images. In this project, we implement our own visual search based recommendation
+      system. This project will allow a user to visualize the similarity between their input image and the images in the database in
       low-dimensional space. Our project is tailored to work with fashion items (clothes, brands, outfits), as there are many
       exciting applications for visual recommendation in the fashion/e-commerce domain.<br><br>
 
@@ -86,30 +86,36 @@
       visual recognition. We then implement transfer learning to optimize its performance with fashion items by
       using the <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" target="_blank">DeepFashion</a> and
       Fashion MNIST datasets. We implement our own algorithm to generate image feature vectors and use Spotify's <a href="https://github.com/spotify/annoy" target="_blank">Annoy</a> library to access similar images.
-      Finally, we provide the user with the top-N most recommended images and perform a low-deminsional visualization of image similarity
-      using <a href="https://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>.
       <br><br>
-      <strong>UPDATE THIS SECTION</strong><br>
-      We will then compare the results of this model with another deep learning model based on the
-            <a href="https://arxiv.org/pdf/1703.02344.pdf"
-              target="_blank">VisNet</a> and <a href="https://arxiv.org/pdf/1404.4661.pdf"
-                target="_blank">Deep Ranking architecture.</a>
-      In this model the VGG16 network is combined with two parallel shallow neural networks to learn the fine-grained similarity
-      in images. The input to the model will consist of a triplet of images – query image, positive image (closely related to
-      the query image), and a negative image (different from the query image). The model will be trained to generate embeddings
-      for an input image using a triplet loss based approach such that the distance between embeddings of similar images
+
+      Additionally, we compare the above transfer learning based model with a
+      <a href="https://proceedings.neurips.cc/paper/1993/file/288cc0ff022877bd3df94bc9360b9c5d-Paper.pdf"
+        target="_blank">Siamese neural network </a>
+      trained using <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html"
+        target="_blank">Triplet loss based approach </a>
+      The input to the model will consist of a triplet of images – query image, positive image (closely related to
+      the query image), and a negative image (different from the query image). The model is trained on the Fashion MNIST
+      dataset to generate embeddings
+      for an input image using the triplet loss based approach such that the distance between embeddings of similar images
       (query and positive) will be lesser than that of dissimilar images (query and negative image).<br>
-      <strong>END UPDATE</strong>
+
+      <br><br>
+
+      Finally, we adopt the model with the better performance (in terms of speed and accuracy)
+      to develop a visual search based recommender to provide the user with the top-N most recommended images,
+      and perform a low-deminsional visualization of image similarity
+      using <a href="https://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>.
+
       <br><br>
 
       We have deployed our project as a self-contained application using <a href="https://colab.research.google.com/github/tensorflow/examples/blob/master/courses/udacity_intro_to_tensorflow_for_deep_learning/l01c01_introduction_to_colab_and_python.ipynb"
       target="_blank">Google Colab</a>. Our application achieves a high level of
-      qualitative accuracy for image recommendations.  After applying transfer learning, our model achieves a top-5 accuracy of 91% 
-      on the DeepFashion dataset (see experimental results). Our application is scalable and allows users to query similar images quickly. 
+      qualitative accuracy for image recommendations.  After applying transfer learning, our model achieves a top-5 accuracy of 91%
+      on the DeepFashion dataset (see experimental results). Our application is scalable and allows users to query similar images quickly.
       We aim to extend our project into a stand-alone web application.
 
       <br><br>
-      <h3>Introduction - UPDATE THIS</h3>
+      <h3>Introduction</h3>
       Text based queries often don’t yield accurate results. For instance,
       one comes across an object of interest (a dress that someone’s wearing or a
       show piece in a store that’s not for sale). A text based search for this object
@@ -121,8 +127,10 @@
       similar images from our database.
         <br><br>
       We will utilize the ResNet18 model that was pre-trained on the vast ImageNet dataset
-      and apply transfer learning methods to retrain the network or modify the architecture
-      (Deep Ranking) for a specific fashion items based dataset that suits our projects goals.
+      and apply transfer learning methods to retrain the network
+      for a specific fashion items based dataset that suits our projects goals.
+      We will also experiment with a Siamese neural network trained with Triplet loss on the fashion MNIST dataset
+      and compare results with the transfer learning based approach.
       This project finds use in applications like Pinterest where users can capture images on their
       phone cameras and upload it on the app to find similar images.
 
@@ -131,7 +139,7 @@
 
 
       <!-- figure -->
-      <h3>Approach - ADD YOUR INFO</h3>
+      <h3>Approach - todo</h3>
       The flowchart below demonstrates the approach we have followed to accomplish our project goals.
       <br><br>
       <!-- Main Illustrative Figure -->
@@ -141,12 +149,12 @@
 
       <br><br>
       The technical approach we followed began with using a pretrained model (ResNet18) on the ImageNet dataset and adapting it to the fashion
-      domain using transfer learning. To do this, we utilized multiple tools and services. We used python and relevant data processing libraries 
-      (numpy, pandas, matplotlib, etc.) to download and organize the DeepFashion dataset. Then, we used <a href="https://docs.fast.ai/" target="_blank">FastAI</a> 
-      and <a href="https://pytorch.org/" target="_blank">PyTorch</a> libraries to simiplify 
-      deep learning tasks such as generating image embeddings, performing transfer learning, and saving feature vectors from our model easily. 
-      In addition, we used cloud computing services such as Google Colab for access to optimized GPU hardware and for hosting our application. 
-      In order to manage the DeepFashion dataset, we utilized reference material from 
+      domain using transfer learning. To do this, we utilized multiple tools and services. We used python and relevant data processing libraries
+      (numpy, pandas, matplotlib, etc.) to download and organize the DeepFashion dataset. Then, we used <a href="https://docs.fast.ai/" target="_blank">FastAI</a>
+      and <a href="https://pytorch.org/" target="_blank">PyTorch</a> libraries to simiplify
+      deep learning tasks such as generating image embeddings, performing transfer learning, and saving feature vectors from our model easily.
+      In addition, we used cloud computing services such as Google Colab for access to optimized GPU hardware and for hosting our application.
+      In order to manage the DeepFashion dataset, we utilized reference material from
       <a href="https://towardsdatascience.com/building-a-personalized-real-time-fashion-collection-recommender-22dc90c150cb" target="_blank">
         Building a Personalized Real-Time Fashion Collection Recommender.
       </a><br><br>
@@ -154,25 +162,25 @@
 
       <strong>## ADD relevant info here about model evaluation steps and baseline models</strong><br><br>
 
-      We then selected the optimal model and produced a library of feature vectors for each image in our dataset. We compiled these feature vectors 
-      in a database of recommended images to choose from, and stored relevant image data, embeddigns, and labels. Our next step was to allow the user 
-      to obtain recommended images from an input image outside of our dataset. Given the size of the DeepFashion data set and the hardware 
-      constraints of our system, we leveraged Spotify’s open-source Annoy (Approximate Nearest-Neighbor) library. Using Annoy, we created a query 
-      tree full of feature vectors from our model. Then we used our model to generate a feature vector for a user input image, and Annoy to 
-      obtain the top-N most similar images. The last step is to utilize the python sklearn libraries’ popular t-SNE framework to generate a 
+      We then selected the optimal model and produced a library of feature vectors for each image in our dataset. We compiled these feature vectors
+      in a database of recommended images to choose from, and stored relevant image data, embeddigns, and labels. Our next step was to allow the user
+      to obtain recommended images from an input image outside of our dataset. Given the size of the DeepFashion data set and the hardware
+      constraints of our system, we leveraged Spotify’s open-source Annoy (Approximate Nearest-Neighbor) library. Using Annoy, we created a query
+      tree full of feature vectors from our model. Then we used our model to generate a feature vector for a user input image, and Annoy to
+      obtain the top-N most similar images. The last step is to utilize the python sklearn libraries’ popular t-SNE framework to generate a
       visualization of image similarity in low-dimensional space. We return the user a list of similar images and the t-SNE plot. <br><br>
 
       <strong>## ADD relevant info here about any other steps you took in your approaches</strong>
-    
+
 
       <br><br>
-      
+
       <strong>Obstacles- ADD ANY OBSTACLES HERE</strong><br><br>
       One obstacle we faced at the beggining of the project was trying to manage the DeepFashion dataset given its large size and computational requirements.
-      To overcome this obstacle, we utilized the refrence material listed under the approach. Another obstacle we encountered while attempting to implement transfer learning 
+      To overcome this obstacle, we utilized the refrence material listed under the approach. Another obstacle we encountered while attempting to implement transfer learning
       was trying to speed up the training process in order to perform more experiments. We overcame this obstacle with the help of
       Google Colab, which allows free access to optimized GPU hardware.
-      
+
 
       <br><br>
       <!-- Results -->
@@ -181,7 +189,7 @@
         The DeepFashion dataset contains over 200K images with descriptive labels across 46 different categories. This dataset is well known
         for complex image classification and similarity problems. The images are different sizes, making it a good fit for our intented application.
         The set of images we used to train our model consisted of 209,222 training images, 40,000 validation images, and 40,000 test images.
-        Next, we used this dataset to conduct transfer learning on the pretrained model.     
+        Next, we used this dataset to conduct transfer learning on the pretrained model.
         In order to apply transfer learning, we first determined the learning rate
         we should limit our model to. Below is a plot of our learning rate findings. Tweaking the learning rate value led to a change in the total time
         it took to train our model. <br><br>
