@@ -190,7 +190,6 @@
       obtain the top-N most similar images. The last step is to utilize the python sklearn libraries’ popular t-SNE framework to generate a
       visualization of image similarity in low-dimensional space. We return the user a list of similar images and the t-SNE plot. <br><br>
 
-      <strong>## ADD relevant info here about any other steps you took in your approaches</strong>
       With the system now working, the model was replaced with its pre-transfer learning counterpart.
       This was done to ensure there was noticeable improvement in qualitative performance as a result of the transfer learning.
       Identical input images were provided to the two systems and the resulting top-N similar images were compared.
@@ -198,7 +197,7 @@
 
       <br><br>
 
-      <strong>Obstacles- ADD ANY OBSTACLES HERE</strong><br><br>
+      <strong>Obstacles</strong><br><br>
       One obstacle we faced at the beggining of the project was trying to manage the DeepFashion dataset given its large size and computational requirements.
       To overcome this obstacle, we utilized the refrence material listed under the approach. Another obstacle we encountered while attempting to implement transfer learning
       was trying to speed up the training process in order to perform more experiments. We overcame this obstacle with the help of
@@ -409,10 +408,14 @@
         <br><br>
 
         <strong>Discussion of Models, Datasets, and Results</strong><br><br>
+        When evaluating the pre-trained ResNet18 model as a feature vector generator, it is a clear failure. 
+        The top-N similar images do not bear much resemblance to the provided input image. Interestingly, the top-N 
+        similar images do seem to resemble each other somewhat. It can be concluded that performing transfer learning on the 
+        ResNet18 model resulted in a vast improvement over a naïve approach with the pre-trained model. <br><br>
 
         For our application, the ResNet18 model and DeepFashion dataset were selected for use in the final application. This is because
         the DeepFashion dataset is much more representative of a user image query than Fashion-MNIST, and produces a high level of accuracy. ResNet18 was selected
-        over VGG16 because it was more efficient to train and use, while providing better results for our intented application.
+        over VGG16 because it was more efficient to train and use, while providing better results for our intented application. 
 
       <!-- Results -->
       <h3>Qualitative Results</h3>
@@ -471,7 +474,28 @@
           </figcaption>
         </figure>
       </div> <br><br>
-
+      Here is an example of the visual reccomendation using the final ResNet18 model with transfer learning compared to a visual 
+      reccomendation using the base pre-trained ResNet18 Model.<br><br>
+          <!-- T-SNE Embedding GIF -->
+      <div style="text-align: center; width:100%; height: 600px; position: relative;">
+        <figure class="figure" style="position: absolute; top:0; left: -100px; width: 50%">
+          <img style="height: 600px;" alt="" src="example_untrained_abstract.png">
+          <figcaption class="figure-caption">
+            <span style="font-size: 12px; line-height: 1.5em;">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Visual Recommendations using DeepFashion before Transfer Learning
+            </span>
+          </figcaption>
+        </figure>
+        <figure class="figure" style="position: absolute; top:0; right: -100px; width: 50%">
+          <img style="height: 600px;" alt="" src="example_trained_abstract.png">
+          <figcaption class="figure-caption">
+            <span style="font-size: 12px; line-height: 1.5em;">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Visual Recommendations using DeepFashion after Transfer Learning
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+      <br><br><br>
       <!-- Results -->
       <h3>Conclusion and Future Work</h3>
       In the final stage of the project, we will test the above models on different query
