@@ -112,30 +112,30 @@
       target="_blank">Google Colab</a>. Our application achieves a high level of
       qualitative accuracy for image recommendations.  After applying transfer learning, our model achieves a top-5 accuracy of 91%
       on the DeepFashion dataset (see experimental results). Our application is scalable and allows users to query similar images quickly.
-      We aim to extend our project into a stand-alone web application.
 
       <br><br>
       <h3>Introduction</h3>
-      Text based queries often don’t yield accurate results. For instance,
-      one comes across an object of interest (a dress that someone’s wearing or a
-      show piece in a store that’s not for sale). A text based search for this object
-      on the internet can yield closely related items but may not retrieve the exact item.
-      Visual search based systems can effectively solve this problem by allowing the user
-      to query an image instead of a text and retrieve more accurate results.
-      This project aims to develop a visual search based recommender system that
-      will allow the user to input a query image and generate a list of top-N most
-      similar images from our database.
+      Text based queries often do not yield accurate results. For instance, 
+      an individual comes across a dress someone else is wearing or a show piece 
+      in a store that is not for sale. A text-based search for this object on the internet can yield 
+      closely related items but may not retrieve the exact item, and results will vary based on an 
+      individual's choice of words. Visual-based search systems can solve this problem by allowing the 
+      user to query an image instead of text and retrieve more accurate and consistent results. This project 
+      aims to develop a visual search based recommender system that will allow the user to input a query 
+      image and generate a list of top-N most similar images from our database.
+      
         <br><br>
-      We will utilize the ResNet18 model that was pre-trained on the vast ImageNet dataset
-      and apply transfer learning methods to retrain the network
-      for a specific fashion items based dataset that suits our projects goals.
-      We will also experiment with a Siamese neural network trained with Triplet loss on the fashion MNIST dataset
-      and compare results with the transfer learning based approach.
-      This project finds use in applications like Pinterest where users can capture images on their
-      phone cameras and upload it on the app to find similar images.
+      This project can find use in applications such as Pinterest, where users can capture images on their
+      phone cameras and upload it on the app to find similar images. An online clothing store could implement a 
+      visual reccomendation system to help a customer find something they might only have a picture of. 
 
       <br><br>
 
+      The area of convolutional neural networks (CNN) is a rapidly changing field with increasingly more applications each year. One of the challenges 
+      of working with CNNs is the high demand for resources, especially when working with images. Low-dimensional space in this report refers to the reduction of 
+      data in high-dimensional space down to something easily understandable. In this case we reduce from 512 dimensions down to three, which allows for us to provide 
+      the end user with a simple three-dimensional plot using <a href="https://plotly.com/python/">Plotly</a>.
+      <br><br>
 
 
       <!-- figure -->
@@ -408,7 +408,7 @@
         <br><br>
 
         <strong>Discussion of Models, Datasets, and Results</strong><br><br>
-        When evaluating the pre-trained ResNet18 model as a feature vector generator, it is a clear failure. 
+        When evaluating the pre-trained ResNet18 model without transfer learning as a feature vector generator, it is a clear failure. 
         The top-N similar images do not bear much resemblance to the provided input image. Interestingly, the top-N 
         similar images do seem to resemble each other somewhat. It can be concluded that performing transfer learning on the 
         ResNet18 model resulted in a vast improvement over a naïve approach with the pre-trained model. <br><br>
