@@ -97,7 +97,7 @@
       the query image), and a negative image (different from the query image). The model is trained on the Fashion MNIST
       dataset to generate embeddings
       for an input image using the triplet loss based approach such that the distance between embeddings of similar images
-      (query and positive) will be lesser than that of dissimilar images (query and negative image).<br>
+      (query and positive) will be lesser than that of dissimilar images (query and negative image).
 
       <br><br>
 
@@ -139,7 +139,7 @@
 
 
       <!-- figure -->
-      <h3>Approach - todo</h3>
+      <h3>Approach </h3>
       The flowchart below demonstrates the approach we have followed to accomplish our project goals.
       <br><br>
       <!-- Main Illustrative Figure -->
@@ -160,8 +160,28 @@
       </a><br><br>
       After applying transfer learning, we evaluated the performance and cost of different models.
       <br><br>
-      <strong>## ADD relevant info here about model evaluation steps and baseline models</strong><br><br>
+      The Siamese Neural Network (SNN) was first proposed in 1993 to verify signatures written on a pen-input tablet. The architecture consists of two or more ‘identical’ subnetworks, i.e., they possess the same configuration and share the same parameters and weights. SNN learns to find the similarity between the inputs by comparing their corresponding feature vectors generated from the subnetworks. Siamese neural networks are also known to  be more robust to class imbalance and can effectively capture the semantic similarity between the images in their respective embeddings. Conventional neural networks need to be retrained when a new class is added to or removed from the database. Conversely, SNNs can classify new classes of data without needing to be retrained as they learn a ‘similarity function’ that determines if two images belong to the same class.
 
+      <br><br>
+
+      The Trip Loss technique was introduced in the Facenet paper in 2015. In the triplet loss function, an anchor image is compared to a positive input and a negative input image. The distance between the anchor and positive input is minimized while the
+      distance between the anchor and negative input is maximized.
+
+      The loss function is defined as below –
+
+      <br><br>
+      <div style="text-align: center;">
+        <img style="height: 200px;" alt="" src="TripletLoss.png">
+      </div>
+      <br><br>
+      In the above equation, alpha is the margin that specifies how further apart must the similar and dissimilar pairs of the triplets be in the distribution space. The margin hyperparameter helps distinguish the two images better. f(A), f(N), and f(P) are the feature embeddings of the anchor, positive and negative images.
+
+      <br><br>
+      During the training process, an images triplet is fed into identical models. Since the weights of the models are identical, we use a single model and feed the three images sequentially. Following this, the loss is calculated as above such that the distance between anchor and positive image is minimised and that of anchor and negative images is maximised. Using the loss function we calculate the gradients and update the weights and biases of the network. In this experiment, we have taken an anchor image and randomly sampled positive and negative images to compute the loss function and update the gradients.
+      <br><br>
+      The embeddings generated for each of the images serve as their latent feature representations. A comparison of these embeddings can reveal if two images belong to the same class or not. The dimension of the embeddings is another hyperparameter of our network that can be tuned to optimise the system performance.
+      SNNs work well in scenarios where the classes change too frequently to be constantly retrained.
+      <br><br>
       We then selected the optimal model and produced a library of feature vectors for each image in our dataset. We compiled these feature vectors
       in a database of recommended images to choose from, and stored relevant image data, embeddigns, and labels. Our next step was to allow the user
       to obtain recommended images from an input image outside of our dataset. Given the size of the DeepFashion data set and the hardware
@@ -171,10 +191,10 @@
       visualization of image similarity in low-dimensional space. We return the user a list of similar images and the t-SNE plot. <br><br>
 
       <strong>## ADD relevant info here about any other steps you took in your approaches</strong>
-      With the system now working, the model was replaced with its pre-transfer learning counterpart. 
-      This was done to ensure there was noticeable improvement in qualitative performance as a result of the transfer learning. 
+      With the system now working, the model was replaced with its pre-transfer learning counterpart.
+      This was done to ensure there was noticeable improvement in qualitative performance as a result of the transfer learning.
       Identical input images were provided to the two systems and the resulting top-N similar images were compared.
-      
+
 
       <br><br>
 
@@ -186,7 +206,7 @@
 
       <!-- Judgement calls would go here -->
 
-      
+
       <br><br>
       <!-- Results -->
       <h3>Experiments and Results</h3>
