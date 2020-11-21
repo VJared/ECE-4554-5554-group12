@@ -127,7 +127,7 @@
         <br><br>
       This project can find use in applications such as Pinterest, where users can capture images on their
       phone cameras and upload it on the app to find similar images. An online clothing store could implement a
-      visual reccomendation system to help a customer find something they might only have a picture of.
+      visual recommendation system to help a customer find something they might only have a picture of.
 
       <br><br>
 
@@ -391,7 +391,7 @@
       </div> <br>
 
       <strong>Siamese Neural Network with Triplet Loss</strong><br><br>
-      In this project, we’ve employed the FashionMNIST dataset to generate the triplet input images
+      In this project, we have employed the Fashion MNIST dataset to generate the triplet input images
       and train the Siamese neural network. There are two ways to generate triplets –
       <a href="https://medium.com/@enoshshr/triplet-loss-and-siamese-neural-networks-5d363fdeba9b"
       target="_blank">offline and
@@ -406,7 +406,7 @@
       <img style="height: 270px;" alt="" src="Siamese.png">
       <br><br>
       We also observed the following trend of increase in accuracy on increasing the number of
-      training training samples per class for generating the triplets.
+      training samples per class for generating the triplets.
       <img style="height: 120px;" alt="" src="100_training_samples.png">
       <img style="height: 120px;" alt="" src="200_training_samples.png">
       <img style="height: 120px;" alt="" src="500_Training_samples.png">
@@ -414,7 +414,7 @@
 
         <strong>Discussion of Models, Datasets, and Results</strong><br><br>
         The Siamese network produced an accuracy of ~80% in comparison to the Transfer Learning based model (based on VGG16) which
-        produced accuracy of ~92% on the FashionMNIST. Considering its superior performance and the potential computationally
+        produced accuracy of ~92% on the Fashion MNIST. Considering its superior performance and the potential computationally
         expensive procedure involved in generating triplets on the DeepFashion dataset, the Transfer Learning based approach was
         selected for the subsequent stage of building the visual search system. <br><br>
 
@@ -424,8 +424,8 @@
         ResNet18 model resulted in a vast improvement over a naïve approach with the pre-trained model. <br><br>
 
         For our application, the ResNet18 model and DeepFashion dataset were selected for use in the final application. This is because
-        the DeepFashion dataset is much more representative of a user image query than Fashion-MNIST, and produces a high level of accuracy. ResNet18 was selected
-        over VGG16 because it was more efficient to train and use, while providing better results for our intented application.
+        the DeepFashion dataset is much more representative of a user image query than Fashion-MNIST and produces a high level of accuracy. ResNet18 was selected
+        over VGG16 because it was more efficient to train and use, while providing better results for our intended application.
 
       <!-- Results -->
       <h3>Qualitative Results</h3>
@@ -484,8 +484,8 @@
           </figcaption>
         </figure>
       </div> <br><br>
-      Here is an example of the visual reccomendation using the final ResNet18 model with transfer learning compared to a visual
-      reccomendation using the base pre-trained ResNet18 Model.<br><br>
+      Here is an example of the visual recommendation using the final ResNet18 model with transfer learning compared to a visual
+      recommendation using the base pre-trained ResNet18 Model.<br><br>
           <!-- T-SNE Embedding GIF -->
       <div style="text-align: center; width:100%; height: 600px; position: relative;">
         <figure class="figure" style="position: absolute; top:0; left: -100px; width: 50%">
@@ -508,7 +508,7 @@
       <br><br><br>
       <!-- Results -->
       <h3>Conclusion and Future Work</h3>
-      In this project we’ve successfully implemented multiple neural networks to determine the image
+      In this project we have successfully implemented multiple neural networks to determine the image
       similarity between different categories of images in a fashion dataset. We obtained accuracies
       of ~95% and ~82% on the Fashion MNIST dataset with the Transfer Learning and Siamese Networks
       respectively. Subsequently, we’ve developed a visual search based recommender system using the
@@ -566,6 +566,10 @@
       <br>
       <a href="https://towardsdatascience.com/building-a-personalized-real-time-fashion-collection-recommender-22dc90c150cb">https://towardsdatascience.com/building-a-personalized-real-time-fashion-collection-recommender-22dc90c150cb</a>
 
+      <br><br>
+      Triplet Loss and Siamese Neural Networks
+      <br>
+      <a href="https://medium.com/@enoshshr/triplet-loss-and-siamese-neural-networks-5d363fdeba9b">https://medium.com/@enoshshr/triplet-loss-and-siamese-neural-networks-5d363fdeba9b</a>
 
       <br><br>
 
