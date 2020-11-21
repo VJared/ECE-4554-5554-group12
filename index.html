@@ -85,7 +85,8 @@
         target="_blank">ResNet18</a> model because of its strong performance in
       visual recognition. We then implement transfer learning to optimize its performance with fashion items by
       using the <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" target="_blank">DeepFashion</a> and
-      Fashion MNIST datasets. We implement our own algorithm to generate image feature vectors and use Spotify's <a href="https://github.com/spotify/annoy" target="_blank">Annoy</a> library to access similar images.
+      Fashion MNIST datasets. We implement our own algorithm to generate image feature vectors and use 
+      Spotify's <a href="https://github.com/spotify/annoy" target="_blank">Annoy</a> library to access similar images using approximate nearest-neighbor.
       <br><br>
 
       Additionally, we compare the above transfer learning based model with a
@@ -93,17 +94,16 @@
         target="_blank">Siamese neural network </a>
       trained using <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html"
         target="_blank">Triplet loss based approach </a>
-      The input to the model will consist of a triplet of images – query image, positive image (closely related to
-      the query image), and a negative image (different from the query image). The model is trained on the Fashion MNIST
+      The input to the model will consist of a triplet of images – query image, positive image , and a negative image . The model is trained on the Fashion MNIST
       dataset to generate embeddings
       for an input image using the triplet loss based approach such that the distance between embeddings of similar images
       (query and positive) will be lesser than that of dissimilar images (query and negative image).
 
       <br><br>
 
-      Finally, we adopt the model with the better performance (in terms of speed and accuracy)
+      Finally, we adopt the model with the better performance
       to develop a visual search based recommender to provide the user with the top-N most recommended images,
-      and perform a low-deminsional visualization of image similarity
+      and perform a low-dimensional visualization of image similarity
       using <a href="https://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>.
 
       <br><br>
@@ -151,7 +151,7 @@
       The technical approach we followed began with using a pretrained model (ResNet18) on the ImageNet dataset and adapting it to the fashion
       domain using transfer learning. To do this, we utilized multiple tools and services. We used python and relevant data processing libraries
       (numpy, pandas, matplotlib, etc.) to download and organize the DeepFashion dataset. Then, we used <a href="https://docs.fast.ai/" target="_blank">FastAI</a>
-      and <a href="https://pytorch.org/" target="_blank">PyTorch</a> libraries to simiplify
+      and <a href="https://pytorch.org/" target="_blank">PyTorch</a> libraries to simplify
       deep learning tasks such as generating image embeddings, performing transfer learning, and saving feature vectors from our model easily.
       In addition, we used cloud computing services such as Google Colab for access to optimized GPU hardware and for hosting our application.
       In order to manage the DeepFashion dataset, we utilized reference material from
@@ -177,16 +177,16 @@
       In the above equation, alpha is the margin that specifies how further apart must the similar and dissimilar pairs of the triplets be in the distribution space. The margin hyperparameter helps distinguish the two images better. f(A), f(N), and f(P) are the feature embeddings of the anchor, positive and negative images.
 
       <br><br>
-      During the training process, an images triplet is fed into identical models. Since the weights of the models are identical, we use a single model and feed the three images sequentially. Following this, the loss is calculated as above such that the distance between anchor and positive image is minimised and that of anchor and negative images is maximised. Using the loss function we calculate the gradients and update the weights and biases of the network. In this experiment, we have taken an anchor image and randomly sampled positive and negative images to compute the loss function and update the gradients.
+      During the training process, an images triplet is fed into identical models. Since the weights of the models are identical, we use a single model and feed the three images sequentially. Following this, the loss is calculated as above such that the distance between anchor and positive image is minimized and that of anchor and negative images is maximized. Using the loss function, we calculate the gradients and update the weights and biases of the network. In this experiment, we have taken an anchor image and randomly sampled positive and negative images to compute the loss function and update the gradients.
       <br><br>
-      The embeddings generated for each of the images serve as their latent feature representations. A comparison of these embeddings can reveal if two images belong to the same class or not. The dimension of the embeddings is another hyperparameter of our network that can be tuned to optimise the system performance.
+      The embeddings generated for each of the images serve as their latent feature representations. A comparison of these embeddings can reveal if two images belong to the same class or not. The dimension of the embeddings is another hyperparameter of our network that can be tuned to optimize the system performance.
       SNNs work well in scenarios where the classes change too frequently to be constantly retrained.
       <br><br>
       We then selected the optimal model and produced a library of feature vectors for each image in our dataset. We compiled these feature vectors
-      in a database of recommended images to choose from, and stored relevant image data, embeddigns, and labels. Our next step was to allow the user
+      in a database of recommended images to choose from, and stored relevant image data, embeddings, and labels. Our next step was to allow the user
       to obtain recommended images from an input image outside of our dataset. Given the size of the DeepFashion data set and the hardware
       constraints of our system, we leveraged Spotify’s open-source Annoy (Approximate Nearest-Neighbor) library. Using Annoy, we created a query
-      tree full of feature vectors from our model. Then we used our model to generate a feature vector for a user input image, and Annoy to
+      tree full of feature vectors from our model. Then we used our model to generate a feature vector for a user input image and Annoy to
       obtain the top-N most similar images. The last step is to utilize the python sklearn libraries’ popular t-SNE framework to generate a
       visualization of image similarity in low-dimensional space. We return the user a list of similar images and the t-SNE plot. <br><br>
 
@@ -198,8 +198,8 @@
       <br><br>
 
       <strong>Obstacles</strong><br><br>
-      One obstacle we faced at the beggining of the project was trying to manage the DeepFashion dataset given its large size and computational requirements.
-      To overcome this obstacle, we utilized the refrence material listed under the approach. Another obstacle we encountered while attempting to implement transfer learning
+      One obstacle we faced at the beginning of the project was trying to manage the DeepFashion dataset given its large size and computational requirements.
+      To overcome this obstacle, we utilized the reference material listed under the approach. Another obstacle we encountered while attempting to implement transfer learning
       was trying to speed up the training process in order to perform more experiments. We overcame this obstacle with the help of
       Google Colab, which allows free access to optimized GPU hardware.
 
@@ -211,7 +211,7 @@
       <h3>Experiments and Results</h3>
       <strong>ResNet18 and DeepFashion</strong><br><br>
         The DeepFashion dataset contains over 200K images with descriptive labels across 46 different categories. This dataset is well known
-        for complex image classification and similarity problems. The images are different sizes, making it a good fit for our intented application.
+        for complex image classification and similarity problems. The images are different sizes, making it a good fit for our intended application.
         The set of images we used to train our model consisted of 209,222 training images, 40,000 validation images, and 40,000 test images.
         Next, we used this dataset to conduct transfer learning on the pretrained model.
         In order to apply transfer learning, we first determined the learning rate
@@ -250,8 +250,8 @@
           </samp>
         </div> <br><br>
 
-        Finally, we evaluated our model in a variety of ways. First, we observed the confusion matrix generated from our model, and then ploted some of the top losses from our model.
-        The confusion matrix and an array of the top losses can be seen below. Both of these images, along with the metrics from training indicate a reasonable level of performance from our model. <br><br>
+        Finally, we evaluated our model in a variety of ways. First, we observed the confusion matrix generated from our model, and then plotted some of the top losses from our model.
+        The confusion matrix and an array of the top losses can be seen below. Both images, along with the metrics from training indicate a reasonable level of performance from our model. <br><br>
 
         <div style="text-align: center; display: flex; margin: 0;">
           <figure class="figure" style="float: left;">
@@ -331,7 +331,7 @@
       </div> <br>
 
       The metrics that we used to evaluate our model during the transfer learning procedure were categorical accuracy and categorical crossentropy for loss.
-      We gathered data about the transfer learning process using tensorboard, and performed testing on the model post-transfer learning as well. Below is a complete summary of
+      We gathered data about the transfer learning process using tensorboard and performed testing on the model post-transfer learning as well. Below is a complete summary of
       the transfer learning procedure, including plots generated using tensorboard. <br><br>
 
       <div style="background-color: #F5F5F5; border-radius: 12px; padding: 8px; font-size: 12px;">
