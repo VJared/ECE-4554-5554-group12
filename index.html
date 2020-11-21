@@ -85,7 +85,7 @@
         target="_blank">ResNet18</a> model because of its strong performance in
       visual recognition. We then implement transfer learning to optimize its performance with fashion items by
       using the <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" target="_blank">DeepFashion</a> and
-      Fashion MNIST datasets. We implement our own algorithm to generate image feature vectors and use 
+      Fashion MNIST datasets. We implement our own algorithm to generate image feature vectors and use
       Spotify's <a href="https://github.com/spotify/annoy" target="_blank">Annoy</a> library to access similar images using approximate nearest-neighbor.
       <br><br>
 
@@ -115,25 +115,25 @@
 
       <br><br>
       <h3>Introduction</h3>
-      Text based queries often do not yield accurate results. For instance, 
-      an individual comes across a dress someone else is wearing or a show piece 
-      in a store that is not for sale. A text-based search for this object on the internet can yield 
-      closely related items but may not retrieve the exact item, and results will vary based on an 
-      individual's choice of words. Visual-based search systems can solve this problem by allowing the 
-      user to query an image instead of text and retrieve more accurate and consistent results. This project 
-      aims to develop a visual search based recommender system that will allow the user to input a query 
+      Text based queries often do not yield accurate results. For instance,
+      an individual comes across a dress someone else is wearing or a show piece
+      in a store that is not for sale. A text-based search for this object on the internet can yield
+      closely related items but may not retrieve the exact item, and results will vary based on an
+      individual's choice of words. Visual-based search systems can solve this problem by allowing the
+      user to query an image instead of text and retrieve more accurate and consistent results. This project
+      aims to develop a visual search based recommender system that will allow the user to input a query
       image and generate a list of top-N most similar images from our database.
-      
+
         <br><br>
       This project can find use in applications such as Pinterest, where users can capture images on their
-      phone cameras and upload it on the app to find similar images. An online clothing store could implement a 
-      visual reccomendation system to help a customer find something they might only have a picture of. 
+      phone cameras and upload it on the app to find similar images. An online clothing store could implement a
+      visual reccomendation system to help a customer find something they might only have a picture of.
 
       <br><br>
 
-      The area of convolutional neural networks (CNN) is a rapidly changing field with increasingly more applications each year. One of the challenges 
-      of working with CNNs is the high demand for resources, especially when working with images. Low-dimensional space in this report refers to the reduction of 
-      data in high-dimensional space down to something easily understandable. In this case we reduce from 512 dimensions down to three, which allows for us to provide 
+      The area of convolutional neural networks (CNN) is a rapidly changing field with increasingly more applications each year. One of the challenges
+      of working with CNNs is the high demand for resources, especially when working with images. Low-dimensional space in this report refers to the reduction of
+      data in high-dimensional space down to something easily understandable. In this case we reduce from 512 dimensions down to three, which allows for us to provide
       the end user with a simple three-dimensional plot using <a href="https://plotly.com/python/">Plotly</a>.
       <br><br>
 
@@ -171,7 +171,7 @@
 
       <br><br>
       <div style="text-align: center;">
-        <img style="height: 200px;" alt="" src="TripletLoss.png">
+        <img style="height: 100px;" alt="" src="TripletLoss.png">
       </div>
       <br><br>
       In the above equation, alpha is the margin that specifies how further apart must the similar and dissimilar pairs of the triplets be in the distribution space. The margin hyperparameter helps distinguish the two images better. f(A), f(N), and f(P) are the feature embeddings of the anchor, positive and negative images.
@@ -390,32 +390,42 @@
         </samp>
       </div> <br>
 
-      <strong>Deep Ranking - UPDATE/REMOVE AS NECESSARY</strong><br><br>
-        In the next stage of the project we will implement another deep learning model
-        for image similarity that is based on the deep ranking architecture. For this project,
-        we will implement a simpler version of the triplet sampling technique to generate the
-        triplets. Instead of an online sampling technique, we will use uniform sampling to
-        generate the triplets or utilize an existing dataset of triplets
-        <a href="https://sites.google.com/site/imagesimilaritydata/download"
-        target="_blank">triplet.txt</a>
-        and augment it if necessary.
-        <br><br>
-        For the convnet segment, we will replace the AlexNet
-        with VGG16 (similar to the Visnet architecture) in Keras and use the concatenate
-        function in Keras to combine it with the two shallow convolutional layers.
-        The final Ranking layer will compute the Hinge loss or a Triplet loss to train the
-        network based on relative similarity between the triplet images.
-        <br><br>
+      <strong>Siamese Neural Network with Triplet Loss</strong><br><br>
+      In this project, we’ve employed the FashionMNIST dataset to generate the triplet input images
+      and train the Siamese neural network. There are two ways to generate triplets –
+      <a href="https://medium.com/@enoshshr/triplet-loss-and-siamese-neural-networks-5d363fdeba9b"
+      target="_blank">offline and
+      online triplet mining.</a>
+      In this experiment, we’ve used the offline approach, where the triplets are generated manually and then fit
+      to the network.
+      <br><br>
+      Following are the model training results.
+      <br><br>
+      <img style="height: 150px;" alt="" src="FashionMNIST.png">
+      <br><br>
+      <img style="height: 150px;" alt="" src="Siamese.png">
+      <br><br>
+      We also observed the following trend of increase in accuracy on increasing the number of
+      training training samples per class for generating the triplets.
+      <img style="height: 150px;" alt="" src="100_training_samples.png">
+      <img style="height: 150px;" alt="" src="200_training_samples.png">
+      <img style="height: 150px;" alt="" src="500_Training_samples.png">
+      <br><br>
 
         <strong>Discussion of Models, Datasets, and Results</strong><br><br>
-        When evaluating the pre-trained ResNet18 model without transfer learning as a feature vector generator, it is a clear failure. 
-        The top-N similar images do not bear much resemblance to the provided input image. Interestingly, the top-N 
-        similar images do seem to resemble each other somewhat. It can be concluded that performing transfer learning on the 
+        The Siamese network produced an accuracy of ~80% in comparison to the Transfer Learning based model (based on VGG16) which
+        produced accuracy of ~92% on the FashionMNIST. Considering its superior performance and the potential computationally
+        expensive procedure involved in generating triplets on the DeepFashion dataset, the Transfer Learning based approach was
+        selected for the subsequent stage of building the visual search system. <br><br>
+
+        When evaluating the pre-trained ResNet18 model without transfer learning as a feature vector generator, it is a clear failure.
+        The top-N similar images do not bear much resemblance to the provided input image. Interestingly, the top-N
+        similar images do seem to resemble each other somewhat. It can be concluded that performing transfer learning on the
         ResNet18 model resulted in a vast improvement over a naïve approach with the pre-trained model. <br><br>
 
         For our application, the ResNet18 model and DeepFashion dataset were selected for use in the final application. This is because
         the DeepFashion dataset is much more representative of a user image query than Fashion-MNIST, and produces a high level of accuracy. ResNet18 was selected
-        over VGG16 because it was more efficient to train and use, while providing better results for our intented application. 
+        over VGG16 because it was more efficient to train and use, while providing better results for our intented application.
 
       <!-- Results -->
       <h3>Qualitative Results</h3>
@@ -474,7 +484,7 @@
           </figcaption>
         </figure>
       </div> <br><br>
-      Here is an example of the visual reccomendation using the final ResNet18 model with transfer learning compared to a visual 
+      Here is an example of the visual reccomendation using the final ResNet18 model with transfer learning compared to a visual
       reccomendation using the base pre-trained ResNet18 Model.<br><br>
           <!-- T-SNE Embedding GIF -->
       <div style="text-align: center; width:100%; height: 600px; position: relative;">
@@ -498,12 +508,19 @@
       <br><br><br>
       <!-- Results -->
       <h3>Conclusion and Future Work</h3>
-      In the final stage of the project, we will test the above models on different query
-      images and generate the top-N most similar items using distance metrics like L1, L2
-      norm or use <i>k</i>-NN. The performace of We will compare the performance of the above architectures and
-      use the best performing model in our visual search based recommender system where
-      the user can query any input image in the fashion domain to obtain top-N most similar
-      items from the database.
+      In this project we’ve successfully implemented multiple neural networks to determine the image
+      similarity between different categories of images in a fashion dataset. We obtained accuracies
+      of ~95% and ~82% on the Fashion MNIST dataset with the Transfer Learning and Siamese Networks
+      respectively. Subsequently, we’ve developed a visual search based recommender system using the
+      Transfer Learning model on the more extensive ‘DeepFashion’ dataset and achieved an accuracy ~88% (top_5_accuracy).
+      <br><br>
+      The future scope of this project includes deploying the machine learning model online using an
+      application like <a href="https://anvil.works/learn/tutorials/google-colab-to-web-app"
+      target="_blank">Anvil</a>
+      It is an interactive tool that allows connecting a web application to a colab notebook.
+      The web application will retrieve a user query in real-time and send the data to the colab notebook.
+      where the top-n similar items from the DeepFashion database will be computed using the Transfer Learning model
+      and sent back to be displayed on the web application.
       <br><br>
 
       <!-- Results -->
